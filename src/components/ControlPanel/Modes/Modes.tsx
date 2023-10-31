@@ -1,7 +1,7 @@
 import { Options } from "./Options";
 import { useState } from "react";
 
-interface ModesList {
+interface ModesProps {
   ROS: ROSLIB.Ros;
 }
 
@@ -13,7 +13,7 @@ export interface OptionState {
   messageType: string;
 }
 
-export const Modes = (props: ModesList) => {
+export const Modes = (props: ModesProps) => {
   const [controlIdx, setControlIdx] = useState<number>(0);
   const [toggleIdx, setToggleIdx] = useState<number>(1);
 
