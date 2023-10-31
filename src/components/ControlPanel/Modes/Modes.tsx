@@ -1,11 +1,11 @@
-import { ModesList } from "./ModesList";
+import { Options } from "./Options";
 import { useState } from "react";
 
-interface ModesProps {
+interface ModesList {
   ROS: ROSLIB.Ros;
 }
 
-export interface Mode {
+export interface OptionState {
   values: string[];
   idx: number;
   setIdx: React.Dispatch<React.SetStateAction<number>>;
@@ -13,11 +13,11 @@ export interface Mode {
   messageType: string;
 }
 
-export const Modes = (props: ModesProps) => {
+export const Modes = (props: ModesList) => {
   const [controlIdx, setControlIdx] = useState<number>(0);
   const [toggleIdx, setToggleIdx] = useState<number>(1);
 
-  const modes: Record<string, Mode> = {
+  const modes: Record<string, OptionState> = {
     controls: {
       values: ["Teleop", "Auto", "Test"],
       idx: controlIdx,
@@ -34,24 +34,15 @@ export const Modes = (props: ModesProps) => {
     },
   };
 
-  document.addEventListener("keydown", function (event) {
-    if (event.key === " ") {
-      setToggleIdx(1);
-    }
-    if (event.key === "Enter" && event.ctrlKey && event.shiftKey) {
-      setToggleIdx(0);
-    }
-  });
-
   return (
     <div className="flex gap-2">
       <div className="card">
         <div className="card-title">Mode</div>
-        <ModesList mode={modes.controls} ROS={props.ROS} />
+        <Options mode={modes.controls} ROS={props.ROS} />
       </div>
       <div className="card">
-        <div className="card-title">State</div>
-        <ModesList mode={modes.toggle} ROS={props.ROS} />
+        <div className="card-title">Behavior</div>
+        <Options mode={modes.toggle} ROS={props.ROS} />
       </div>
     </div>
   );

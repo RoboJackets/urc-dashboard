@@ -1,9 +1,9 @@
-export interface GamepadDropdownProps {
+export interface GamepadOptionsProps {
   setState: React.Dispatch<React.SetStateAction<number>>;
   operatorType: String;
 }
 
-export const GamepadDropdown = (props: GamepadDropdownProps) => {
+export const GamepadOptions = (props: GamepadOptionsProps) => {
   // TODO: Add more gamepad aliases
   const gamepadAlias: Record<string, string> = {
     "Wireless Controller (STANDARD GAMEPAD Vendor: 054c Product: 0ce6)":

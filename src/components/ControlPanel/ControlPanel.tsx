@@ -1,6 +1,6 @@
-import { Modes } from "./Mode/Modes";
+import { Modes } from "./Modes/Modes";
 import { Statuses } from "./Status/Statuses";
-import { GamepadSelect } from "./Gamepad/GamepadSelect";
+import { Gamepad } from "./Gamepad/Gamepad";
 
 interface ControlPanelProps {
   ROS: ROSLIB.Ros;
@@ -13,7 +13,7 @@ export const ControlPanel = (props: ControlPanelProps) => {
       <div className="flex gap-2">
         <Modes ROS={props.ROS} />
         <Statuses ROS={props.ROS} />
-        <GamepadSelect ROS={props.ROS} />
+        <Gamepad ROS={props.ROS} />
       </div>
     </div>
   );

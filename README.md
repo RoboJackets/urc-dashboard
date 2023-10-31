@@ -24,8 +24,3 @@ npm start
 This will start an application on `localhost:3000`
 
 ---
-
-# Keyboard Shortcuts
-
-1. **Enable**: Control + Shift + Enter
-2. **Disable**: Spacebar

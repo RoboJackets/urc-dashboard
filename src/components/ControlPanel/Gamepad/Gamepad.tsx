@@ -1,15 +1,23 @@
 import { useState } from "react";
 import { GamepadPublisher } from "./GamepadPublisher";
-import { GamepadDropdown } from "./GamepadDropdown";
+import { GamepadOptions } from "./GamepadOptions";
 
-interface GamepadSelectProps {
+interface GamepadProps {
   ROS: ROSLIB.Ros;
 }
 
-export const GamepadSelect = (props: GamepadSelectProps) => {
+export const Gamepad = (props: GamepadProps) => {
   const [driverGamepadIdx, setDriverGamepadIdx] = useState<number>(0);
   const [armGamepadIdx, setArmGamepadIdx] = useState<number>(0);
   const [gamepadCounter, setGamepadCounter] = useState<number>(0);
+  const [gamepadPublisher, setGamepadPublisher] = useState<GamepadPublisher>(
+    new GamepadPublisher(props.ROS)
+  );
+
+  setInterval(() => {
+    gamepadPublisher.publishDriverGamepad(driverGamepadIdx);
+    gamepadPublisher.publicArmGamepad(armGamepadIdx);
+  }, 100);
 
   window.addEventListener("gamepadconnected", () => {
     setGamepadCounter(gamepadCounter + 1);
@@ -26,13 +34,8 @@ export const GamepadSelect = (props: GamepadSelectProps) => {
   return (
     <div className="card">
       <div className="card-subtitle">Gamepads</div>
-      <GamepadDropdown operatorType={"Drive"} setState={setDriverGamepadIdx} />
-      <GamepadDropdown operatorType={"Arm"} setState={setArmGamepadIdx} />
-      <GamepadPublisher
-        ROS={props.ROS}
-        driverGamepadIdx={driverGamepadIdx}
-        armGamepadIdx={armGamepadIdx}
-      />
+      <GamepadOptions operatorType={"Drive"} setState={setDriverGamepadIdx} />
+      <GamepadOptions operatorType={"Arm"} setState={setArmGamepadIdx} />
     </div>
   );
 };

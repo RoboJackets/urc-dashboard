@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Status } from "./Status";
 import ROSLIB from "roslib";
+import { HeartbeatSubscriber } from "./HeartbeatSubscriber";
 
 interface StatusesProps {
   ROS: ROSLIB.Ros;
 }
 
-enum StatusColors {
+export enum StatusColors {
   RED = "bg-red-500",
   YELLOW = "bg-yellow-500",
   GREEN = "bg-green-500",
@@ -19,34 +20,19 @@ export const Statuses = (props: StatusesProps) => {
   const [robotStatus, setRobotStatus] = useState<StatusColors>(
     StatusColors.RED
   );
-  const [lastTimestamp, setLastTimestamp] = useState(0);
+  const [heartbeatSubscriber, setHeartbeatSubscriber] =
+    useState<HeartbeatSubscriber>(
+      new HeartbeatSubscriber(props.ROS, setRobotStatus)
+    );
+
+  setInterval(() => {
+    heartbeatSubscriber.checkHeartbeat();
+  }, 100);
 
   // Rosbridge Status
   props.ROS.on("connection", () => setBridgeStatus(StatusColors.GREEN));
   props.ROS.on("error", () => setBridgeStatus(StatusColors.YELLOW));
   props.ROS.on("close", () => setBridgeStatus(StatusColors.RED));
-
-  // Subscribe to heartbeat topic
-  useEffect(() => {
-    // Heartbeat Topic
-    const heartbeatTopic = new ROSLIB.Topic({
-      ros: props.ROS,
-      name: "/heartbeat",
-      messageType: "builtin_interfaces/msg/Time",
-    });
-
-    heartbeatTopic.subscribe((message: any) => {
-      setLastTimestamp(message.stamp.sec);
-    });
-  });
-
-  setInterval(() => {
-    if (Date.now() / 1000 - lastTimestamp > 1) {
-      setRobotStatus(StatusColors.RED);
-    } else {
-      setRobotStatus(StatusColors.GREEN);
-    }
-  });
 
   return (
     <div className="card">

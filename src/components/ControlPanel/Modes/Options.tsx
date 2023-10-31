@@ -1,14 +1,14 @@
-import { ModesOption } from "./ModesOptions";
+import { Option } from "./Option";
 import ROSLIB from "roslib";
-import { Mode } from "./Modes";
+import { OptionState } from "./Modes";
 import { useEffect } from "react";
 
-interface ModesListProps {
-  mode: Mode;
+interface OptionsProps {
+  mode: OptionState;
   ROS: ROSLIB.Ros;
 }
 
-export const ModesList = (props: ModesListProps) => {
+export const Options = (props: OptionsProps) => {
   const setCurIdx = props.mode.setIdx;
   const curIdx = props.mode.idx;
   const values = props.mode.values;
@@ -33,7 +33,7 @@ export const ModesList = (props: ModesListProps) => {
   return (
     <div className="flex flex-col p-1 gap-1 border border-neutral-700 rounded-md h-min">
       {values.map((value: string, idx: number) => (
-        <ModesOption
+        <Option
           key={idx}
           value={value}
           idx={idx}
