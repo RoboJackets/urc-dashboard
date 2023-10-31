@@ -21,6 +21,4 @@ Run the server:
 npm start
 ```
 
-This will start an application on `localhost:3000`
-
----
+If the maps are not showing up in offline mode, please download the map from this link.

@@ -1,5 +1,5 @@
-import { Modes } from "./Modes/Modes";
-import { Statuses } from "./Statuses/Statuses";
+import { Modes } from "./Mode/Modes";
+import { Statuses } from "./Status/Statuses";
 import { Gamepad } from "./Gamepad/Gamepad";
 
 interface ControlPanelProps {

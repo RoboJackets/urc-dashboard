@@ -1,6 +1,6 @@
 import { Option } from "./Option";
 import ROSLIB from "roslib";
-import { OptionState } from "./Modes";
+import { OptionState } from "./Mode";
 import { useEffect } from "react";
 
 interface OptionsProps {
