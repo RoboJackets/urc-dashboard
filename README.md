@@ -21,4 +21,4 @@ Run the server:
 npm start
 ```
 
-If the maps are not showing up in offline mode, please download the map from this link.
+If the maps are gray in offline mode, that means the tiles are not downloaded. Download the tiles from this [link](https://drive.google.com/drive/folders/1c812eV4HamnchAFPQAVT9MSjyUMZn3OQ?usp=sharing) and place them in the `public/static` folder. I have offline tiles for the competitiion area.
