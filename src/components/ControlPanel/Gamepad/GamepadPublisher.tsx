@@ -43,19 +43,8 @@ export const GamepadPublisher = (props: GamepadPublisherProps) => {
   // Publish Movement Method
   const publishMovementInput = (gamepad: Gamepad, topic: ROSLIB.Topic) => {
     let joy_msg = new ROSLIB.Message({
-      axes: [
-        0.0,
-        inputDeadzone(gamepad.axes[1], 0.02),
-        0.0,
-        0.0,
-        inputDeadzone(gamepad.axes[3], 0.02),
-      ],
-      buttons: [
-        gamepad.buttons[0].pressed ? 1 : 0,
-        gamepad.buttons[1].pressed ? 1 : 0,
-        gamepad.buttons[2].pressed ? 1 : 0,
-        gamepad.buttons[3].pressed ? 1 : 0,
-      ],
+      axes: gamepad.axes.map((axis) => inputDeadzone(axis, 0.02)),
+      buttons: gamepad.buttons.map((button) => button.pressed),
     });
 
     topic.publish(joy_msg);
@@ -69,13 +58,12 @@ export const GamepadPublisher = (props: GamepadPublisherProps) => {
       (checkNonzero(driveGamepad.axes, 0.02) ||
         checkNonzero(driveGamepad.buttons, 0.02))
     ) {
-      console.log("publishing");
       publishMovementInput(driveGamepad, driverTopic);
     }
     if (
       armGamepad &&
-      checkNonzero(armGamepad.axes, 0.02) &&
-      checkNonzero(armGamepad.buttons, 0.02)
+      (checkNonzero(armGamepad.axes, 0.02) ||
+        checkNonzero(armGamepad.buttons, 0.02))
     ) {
       publishMovementInput(armGamepad, armTopic);
     }

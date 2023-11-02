@@ -7,8 +7,8 @@ interface GamepadProps {
 }
 
 export const Gamepad = (props: GamepadProps) => {
-  const [driverGamepadIdx, setDriverGamepadIdx] = useState<number>(0);
-  const [armGamepadIdx, setArmGamepadIdx] = useState<number>(0);
+  const [driverGamepadIdx, setDriverGamepadIdx] = useState<number>(-1);
+  const [armGamepadIdx, setArmGamepadIdx] = useState<number>(-1);
   const [gamepadCounter, setGamepadCounter] = useState<number>(0);
 
   window.addEventListener("gamepadconnected", () => {
