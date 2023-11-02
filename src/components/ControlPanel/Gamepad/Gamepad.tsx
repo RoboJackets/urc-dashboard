@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { GamepadPublisher } from "./GamepadPublisher";
 import { GamepadOptions } from "./GamepadOptions";
+import { GamepadPublisher } from "./GamepadPublisher";
 
 interface GamepadProps {
   ROS: ROSLIB.Ros;
@@ -10,14 +10,6 @@ export const Gamepad = (props: GamepadProps) => {
   const [driverGamepadIdx, setDriverGamepadIdx] = useState<number>(0);
   const [armGamepadIdx, setArmGamepadIdx] = useState<number>(0);
   const [gamepadCounter, setGamepadCounter] = useState<number>(0);
-  const [gamepadPublisher, setGamepadPublisher] = useState<GamepadPublisher>(
-    new GamepadPublisher(props.ROS)
-  );
-
-  setInterval(() => {
-    gamepadPublisher.publishDriverGamepad(driverGamepadIdx);
-    gamepadPublisher.publicArmGamepad(armGamepadIdx);
-  }, 100);
 
   window.addEventListener("gamepadconnected", () => {
     setGamepadCounter(gamepadCounter + 1);
@@ -36,6 +28,11 @@ export const Gamepad = (props: GamepadProps) => {
       <div className="card-subtitle">Gamepads</div>
       <GamepadOptions operatorType={"Drive"} setState={setDriverGamepadIdx} />
       <GamepadOptions operatorType={"Arm"} setState={setArmGamepadIdx} />
+      <GamepadPublisher
+        ROS={props.ROS}
+        driverGamepadIdx={driverGamepadIdx}
+        armGamepadIdx={armGamepadIdx}
+      />
     </div>
   );
 };
