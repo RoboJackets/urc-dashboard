@@ -5,7 +5,7 @@ import { useState } from "react";
 function App() {
   let ROS: any;
 
-  const [link, setLink] = useState<string>("ws://localhost:9090");
+  const [link, setLink] = useState<string>("ws://10.52.158.40:9090");
   const [linkReceived, setLinkReceived] = useState(false);
 
   if (!linkReceived) {
@@ -14,7 +14,7 @@ function App() {
         <div className="card">
           <div className="card-title">Input Rosbridge URL</div>
           <input
-            placeholder="ws://localhost:9090"
+            placeholder="ws://10.52.158.40:9090"
             className="w-[200px] h-min"
             onChange={(e) => setLink(e.target.value)}
           />

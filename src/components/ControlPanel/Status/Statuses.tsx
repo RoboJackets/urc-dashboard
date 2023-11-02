@@ -20,15 +20,6 @@ export const Statuses = (props: StatusesProps) => {
   const [robotStatus, setRobotStatus] = useState<StatusColors>(
     StatusColors.RED
   );
-  const [heartbeatSubscriber, setHeartbeatSubscriber] =
-    useState<HeartbeatSubscriber>(
-      new HeartbeatSubscriber(props.ROS, setRobotStatus)
-    );
-
-  setInterval(() => {
-    heartbeatSubscriber.checkHeartbeat();
-  }, 100);
-
   // Rosbridge Status
   props.ROS.on("connection", () => setBridgeStatus(StatusColors.GREEN));
   props.ROS.on("error", () => setBridgeStatus(StatusColors.YELLOW));
@@ -39,6 +30,7 @@ export const Statuses = (props: StatusesProps) => {
       <div className="card-subtitle">Status</div>
       <Status value="Rosbridge" color={bridgeStatus} />
       <Status value="Robot" color={robotStatus} />
+      <HeartbeatSubscriber ROS={props.ROS} setRobotStatus={setRobotStatus} />
     </div>
   );
 };
