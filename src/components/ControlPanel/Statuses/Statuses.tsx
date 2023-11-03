@@ -21,6 +21,9 @@ export const Statuses = (props: StatusesProps) => {
   );
   // Rosbridge Status
   props.ROS.on("connection", () => setBridgeStatus(StatusColors.GREEN));
+  props.ROS.on("error", (e) => {
+    console.error("WebSocket connection error:", e);
+  });
   props.ROS.on("close", () => setBridgeStatus(StatusColors.RED));
 
   return (
