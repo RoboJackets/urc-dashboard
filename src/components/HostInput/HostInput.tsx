@@ -22,7 +22,7 @@ export const HostInput = (props: HostInputProps) => {
             }
           }}
         >
-          Set Rosbridge Host
+          Connect
         </button>
       </div>
     </div>
