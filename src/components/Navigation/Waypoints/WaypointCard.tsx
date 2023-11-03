@@ -11,7 +11,7 @@ export const WaypointCard = (props: WaypointCardProps) => {
       <div className="flex whitespace-nowrap gap-2 items-center">
         <span>{`Id: ${props.waypoint.id} | Lat: ${props.waypoint.lat},  Lng: ${props.waypoint.lng}`}</span>
         <button
-          className="bg-red-500 p-2 rounded-md"
+          className="bg-red-500 "
           onClick={() => props.deleteWaypoint(props.waypoint.id)}
         >
           Delete

@@ -19,7 +19,6 @@ function App() {
             onChange={(e) => setLink(e.target.value)}
           />
           <button
-            className="text-white py-2 px-4 rounded bg-yellow-500"
             onClick={() => {
               if (link) {
                 setLinkReceived(true);

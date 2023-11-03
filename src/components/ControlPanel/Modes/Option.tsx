@@ -14,7 +14,7 @@ export const Option = (props: OptionProps) => {
         styling +
         (props.idx === props.curIdx
           ? " bg-neutral-700 text-white"
-          : " hover:cursor-pointer hover:bg-slate-50 hover:text-white")
+          : " hover:cursor-pointer")
       }
       onClick={() => props.updateIdx(props.idx)}
     >

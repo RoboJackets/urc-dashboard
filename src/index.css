@@ -6,6 +6,14 @@ body {
   @apply bg-black text-white text-sm;
 }
 
+button {
+  @apply text-white p-2 rounded bg-yellow-500;
+}
+
+input {
+  @apply bg-neutral-800 border-none rounded-md outline-none p-2 w-20 text-center placeholder:text-neutral-400;
+}
+
 .card-title {
   @apply text-center font-bold text-lg;
 }
@@ -32,9 +40,4 @@ body {
 
 .marker-content {
   transform: translate(-0.25vw, -50%);
-  /* not centered in the marker rn */
-}
-
-input {
-  @apply bg-neutral-800 border-none rounded-md outline-none p-2 w-20 text-center placeholder:text-neutral-400;
 }

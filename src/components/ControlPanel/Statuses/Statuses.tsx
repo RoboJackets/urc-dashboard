@@ -9,7 +9,6 @@ interface StatusesProps {
 
 export enum StatusColors {
   RED = "bg-red-500",
-  YELLOW = "bg-yellow-500",
   GREEN = "bg-green-500",
 }
 
@@ -22,7 +21,6 @@ export const Statuses = (props: StatusesProps) => {
   );
   // Rosbridge Status
   props.ROS.on("connection", () => setBridgeStatus(StatusColors.GREEN));
-  props.ROS.on("error", () => setBridgeStatus(StatusColors.YELLOW));
   props.ROS.on("close", () => setBridgeStatus(StatusColors.RED));
 
   return (
