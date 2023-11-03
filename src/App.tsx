@@ -29,7 +29,7 @@ function App() {
     </div>
   );
 
-  return hostSet ? renderPanels() : renderHostInput();
+  return <div>{hostSet ? renderPanels() : renderHostInput()}</div>;
 }
 
 export default App;

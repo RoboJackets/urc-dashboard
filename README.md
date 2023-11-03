@@ -45,6 +45,6 @@ npm start
 
 2. You can add and delete waypoints in the waypoints panel
 
-3. The waypoints are displayed on the map using yellow markers, and the robot is displayed using a green "R" marker.
+3. The waypoints are displayed on the map using blue markers, and the robot is displayed using a green "R" marker.
 
 4. The odometery of the rover is displayed in the odometery panel.

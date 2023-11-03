@@ -8,8 +8,8 @@ interface StatusesProps {
 }
 
 export enum StatusColors {
-  RED = "bg-red-500",
-  GREEN = "bg-green-500",
+  RED = "bg-red-400 dark:bg-red-500",
+  GREEN = "bg-green-400 dark:bg-green-500",
 }
 
 export const Statuses = (props: StatusesProps) => {
