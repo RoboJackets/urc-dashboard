@@ -9,7 +9,7 @@ export const HostInput = (props: HostInputProps) => {
   return (
     <div className="App w-screen h-screen p-2 flex gap-2 items-center justify-center">
       <div className="card">
-        <div className="card-title">Input Rosbridge URL</div>
+        <div className="card-title">Input Host</div>
         <input
           placeholder={props.defaultHost}
           className="w-[200px] h-min"
@@ -22,7 +22,7 @@ export const HostInput = (props: HostInputProps) => {
             }
           }}
         >
-          Set Rosbridge URL
+          Set Host
         </button>
       </div>
     </div>
