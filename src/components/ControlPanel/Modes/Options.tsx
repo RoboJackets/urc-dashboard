@@ -31,7 +31,7 @@ export const Options = (props: OptionsProps) => {
     topic.publish(new ROSLIB.Message({ data: values[idx] }));
   };
   return (
-    <div className="flex flex-col p-1 gap-1 border border-neutral-700 rounded-md h-min">
+    <div className="flex flex-col p-1 gap-1 border dark:border-neutral-700 rounded-md h-min">
       {values.map((value: string, idx: number) => (
         <Option
           key={idx}

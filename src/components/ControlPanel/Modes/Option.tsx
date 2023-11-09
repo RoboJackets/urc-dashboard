@@ -13,8 +13,8 @@ export const Option = (props: OptionProps) => {
       className={
         styling +
         (props.idx === props.curIdx
-          ? " bg-neutral-700 text-white"
-          : " hover:cursor-pointer hover:bg-slate-50 hover:text-white")
+          ? " bg-neutral-300 dark:bg-neutral-700 text-white"
+          : " hover:cursor-pointer")
       }
       onClick={() => props.updateIdx(props.idx)}
     >

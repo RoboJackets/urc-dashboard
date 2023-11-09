@@ -43,12 +43,7 @@ export const AddWaypoint = (props: AddWaypointProps) => {
           onChange={(e) => setLng(e.target.value)}
         />
       </div>
-      <button
-        className="bg-yellow-500 text-white py-2 px-4 rounded"
-        onClick={handleAddWaypoint}
-      >
-        Add Waypoint
-      </button>
+      <button onClick={handleAddWaypoint}>Add Waypoint</button>
     </div>
   );
 };

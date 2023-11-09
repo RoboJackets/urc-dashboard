@@ -3,7 +3,15 @@
 @tailwind utilities;
 
 body {
-  @apply bg-black text-white text-sm;
+  @apply dark:bg-black dark:text-white text-sm;
+}
+
+button {
+  @apply text-white p-2 rounded bg-yellow-400  dark:bg-yellow-500;
+}
+
+input {
+  @apply bg-neutral-200 dark:bg-neutral-800 border-none rounded-md outline-none p-2 w-20 text-center placeholder:text-neutral-400;
 }
 
 .card-title {
@@ -15,7 +23,7 @@ body {
 }
 
 .card {
-  @apply border border-neutral-700 rounded-lg p-2 flex h-min gap-2 flex-col w-min;
+  @apply border dark:border-neutral-700 rounded-lg p-2 flex h-min gap-2 flex-col w-min;
 }
 
 .leaflet-container {
@@ -23,7 +31,7 @@ body {
 }
 
 .waypoint-marker {
-  @apply p-2 bg-yellow-500 rounded-sm shadow-black shadow-lg border-gray-200 border-2;
+  @apply p-2 bg-blue-500 rounded-sm shadow-black shadow-lg border-gray-200 border-2;
 }
 
 .robot-marker {
@@ -32,9 +40,5 @@ body {
 
 .marker-content {
   transform: translate(-0.25vw, -50%);
-  /* not centered in the marker rn */
-}
-
-input {
-  @apply bg-neutral-800 border-none rounded-md outline-none p-2 w-20 text-center placeholder:text-neutral-400;
+  @apply text-white;
 }

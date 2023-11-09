@@ -4,10 +4,10 @@ import { Waypoints } from "./Waypoints/Waypoints";
 import { Coordinate } from "./CoordinateInterface";
 import { Odometry } from "./Odometry/Odometry";
 import ROSLIB from "roslib";
-interface NavigationPrpos {
+interface NavigationPanelPrpos {
   ROS: ROSLIB.Ros;
 }
-export const Navigation = (props: NavigationPrpos) => {
+export const Navigation = (props: NavigationPanelPrpos) => {
   const [waypoints, setWaypoints] = useState<Coordinate[]>([]);
   const [odometry, setOdometry] = useState<Coordinate>({
     lat: 38.409,
@@ -25,7 +25,7 @@ export const Navigation = (props: NavigationPrpos) => {
 
   return (
     <div className="flex flex-col card">
-      <div className="card-title">Navigation</div>
+      <div className="card-title">Navigation Panel</div>
       <div className="flex gap-2">
         <Map waypoints={waypoints} odometry={odometry} />
 

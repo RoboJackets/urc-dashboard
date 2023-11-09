@@ -8,9 +8,8 @@ interface StatusesProps {
 }
 
 export enum StatusColors {
-  RED = "bg-red-500",
-  YELLOW = "bg-yellow-500",
-  GREEN = "bg-green-500",
+  RED = "bg-red-400 dark:bg-red-500",
+  GREEN = "bg-green-400 dark:bg-green-500",
 }
 
 export const Statuses = (props: StatusesProps) => {
@@ -20,18 +19,11 @@ export const Statuses = (props: StatusesProps) => {
   const [robotStatus, setRobotStatus] = useState<StatusColors>(
     StatusColors.RED
   );
-  const [heartbeatSubscriber, setHeartbeatSubscriber] =
-    useState<HeartbeatSubscriber>(
-      new HeartbeatSubscriber(props.ROS, setRobotStatus)
-    );
-
-  setInterval(() => {
-    heartbeatSubscriber.checkHeartbeat();
-  }, 100);
-
   // Rosbridge Status
   props.ROS.on("connection", () => setBridgeStatus(StatusColors.GREEN));
-  props.ROS.on("error", () => setBridgeStatus(StatusColors.YELLOW));
+  props.ROS.on("error", (e) => {
+    console.error("WebSocket connection error:", e);
+  });
   props.ROS.on("close", () => setBridgeStatus(StatusColors.RED));
 
   return (
@@ -39,6 +31,7 @@ export const Statuses = (props: StatusesProps) => {
       <div className="card-subtitle">Status</div>
       <Status value="Rosbridge" color={bridgeStatus} />
       <Status value="Robot" color={robotStatus} />
+      <HeartbeatSubscriber ROS={props.ROS} setRobotStatus={setRobotStatus} />
     </div>
   );
 };

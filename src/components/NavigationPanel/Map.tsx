@@ -58,13 +58,7 @@ export const Map = (props: MapProps) => {
           <TileLayer url="/static/map/{z}/{x}/{y}.png" errorTileUrl="error" />
         )}
       </MapContainer>
-      <button
-        className={
-          "text-white py-2 px-4 rounded " +
-          (status ? "bg-yellow-500" : "bg-neutral-500")
-        }
-        onClick={toggleStatus}
-      >
+      <button className={status ? "" : "bg-neutral-500"} onClick={toggleStatus}>
         {status ? "Online" : "Offline"}
       </button>
     </div>
