@@ -25,7 +25,7 @@ npm start
 
 1. Start the rosbridge server on the rover using `ros2 launch urc_bringup websocket.launch.py`. Then find the ip of the rover using `hostname -I`.
 
-2. Input the host IP into the dashboard and click connect.
+2. Input the host IP into the dashboard and click connect. Make sure that the Status -> Rosbridge indicator is green.
 
 ## Control Panel
 
