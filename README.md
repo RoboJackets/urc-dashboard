@@ -13,8 +13,6 @@ Install the dependencies:
 npm install
 ```
 
-Follow the instructions in [`urc_dashboard`](../urc_dashboard/README.md) package to launch Foxglove, and the websocket.
-
 Run the server:
 
 ```bash
@@ -25,7 +23,7 @@ npm start
 
 ## Host Input
 
-1. Start the rosbridge server on the rover using `ros2 launch urc_bringup websocket.launch.py`. Then find the ip of the roroverbot using `hostname -I`.
+1. Start the rosbridge server on the rover using `ros2 launch urc_bringup websocket.launch.py`. Then find the ip of the rover using `hostname -I`.
 
 2. Input the host IP into the dashboard and click connect.
 
