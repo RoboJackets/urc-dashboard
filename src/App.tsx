@@ -6,10 +6,12 @@ import { HostInput } from "./components/HostInput/HostInput";
 function App() {
   let ROS: ROSLIB.Ros;
   let defaultHost = "10.52.158.40";
-  const [host, setHost] = useState<string>(defaultHost);
-  const [hostSet, toggleHostSet] = useState(false);
+  let storedHost = localStorage.getItem("ip");
+  const [host, setHost] = useState<string>(storedHost == null ? defaultHost : storedHost);
+	const [hostSet, toggleHostSet] = useState(storedHost != null);
 
   if (hostSet) {
+    localStorage.setItem("ip", host);
     ROS = new ROSLIB.Ros({ url: "ws://" + host + ":9090" });
   }
 
@@ -24,7 +26,12 @@ function App() {
 
   const renderPanels = () => (
     <div className="App w-screen h-screen p-2 flex gap-2">
-      <ControlPanel ROS={ROS} />
+      <ControlPanel
+				ROS={ROS}
+				toggleHostSet={toggleHostSet}
+				setHost={setHost}
+				defaultHost={defaultHost}
+			/>
       <Navigation ROS={ROS} />
     </div>
   );
