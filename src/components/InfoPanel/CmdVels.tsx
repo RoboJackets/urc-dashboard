@@ -22,6 +22,7 @@ export const CmdVels = (props: CmdVelProps) => {
       props.setAngular(message.twist.angular[2]); // angular z
     });
   });
+  
   return (
     <div className="card">
       <div className="card-subtitle">Cmd Vel</div>
