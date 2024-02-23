@@ -18,15 +18,15 @@ export const CmdVels = (props: CmdVelProps) => {
 
   useEffect(() => {
     CmdVelTopic.subscribe((message: any) => {
-      props.setLinear(message.twist.linear[0]); // linear x
-      props.setAngular(message.twist.angular[2]); // angular z
+      props.setLinear(message.twist.linear.x); // linear x
+      props.setAngular(message.twist.angular.z); // angular z
     });
   });
   
   return (
     <div className="card">
       <div className="card-subtitle">Cmd Vel</div>
-      <div className="whitespace-nowrap">{`Linear: ${props.linear},  Angular: ${props.angular}`}</div>
+      <div className="whitespace-nowrap">{`Linear: ${props.linear.toPrecision(3)},  Angular: ${props.angular.toPrecision(3)}`}</div>
     </div>
   );
 };
