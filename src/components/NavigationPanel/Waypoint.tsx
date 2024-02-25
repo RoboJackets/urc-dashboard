@@ -54,13 +54,13 @@ export const Waypoint = (props: WaypointProps) => {
 
       <div className="flex gap-2">
         <input
-          type="text"
+          type="number"
           placeholder="Latitude"
           value={lat}
           onChange={(e) => setLat(Number(e.target.value))}
         />
         <input
-          type="text"
+          type="number"
           placeholder="Longitude"
           value={lng}
           onChange={(e) => setLng(Number(e.target.value))}
