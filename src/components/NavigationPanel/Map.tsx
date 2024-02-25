@@ -28,15 +28,12 @@ export const Map = (props: MapProps) => {
     className: "robot-marker",
     html: `<div class="marker-content">R</div>`,
   });
+  
   return (
-    <div className=" card">
+    <div className="card">
       <MapContainer
         center={[props.coord.lat, props.coord.lng]}
         zoom={11}
-        maxBounds={[
-          [38.48, -110.87],
-          [38.33, -110.71],
-        ]}
       >
         {props.waypointActive &&
           <Marker
