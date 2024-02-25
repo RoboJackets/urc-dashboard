@@ -10,7 +10,7 @@ interface GpsProps {
 export const GPS = (props: GpsProps) => {
   const gpsTopic = new ROSLIB.Topic({
     ros: props.ROS,
-    name: "/gps/data",
+    name: "/fix",
     messageType: "sensor_msgs/NavSatFix",
   });
 
