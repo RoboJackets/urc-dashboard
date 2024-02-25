@@ -50,6 +50,7 @@ export const Waypoint = (props: WaypointProps) => {
     <div className="p-4 card">
       <div className="card-subtitle">Waypoint</div>
       <div className="whitespace-nowrap">{`Status: ${statusMessage}`}</div>
+      <div className="whitespace-nowrap">{`${props.waypointActive ? "Waypoint Set" : "No Active Waypoint"}`}</div>
       <div className="whitespace-nowrap">{`Lat: ${props.waypoint.lat}, Lng: ${props.waypoint.lng}`}</div>
 
       <div className="flex gap-2">
