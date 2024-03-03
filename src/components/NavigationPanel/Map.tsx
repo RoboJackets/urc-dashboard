@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -12,6 +13,7 @@ interface MapProps {
 }
 export const Map = (props: MapProps) => {
   const [status, setStatus] = useState(true);
+  const mapRef = useRef<any>(null);
 
   const toggleStatus = () => {
     setStatus(!status);
@@ -34,6 +36,7 @@ export const Map = (props: MapProps) => {
       <MapContainer
         center={[props.coord.lat, props.coord.lng]}
         zoom={11}
+        ref={mapRef}
       >
         {props.waypointActive &&
           <Marker
@@ -53,6 +56,22 @@ export const Map = (props: MapProps) => {
           <TileLayer url="/static/map/{z}/{x}/{y}.png" errorTileUrl="error" />
         )}
       </MapContainer>
+      <button onClick={() => {
+        if (mapRef.current) {
+          mapRef.current.setView([props.coord.lat, props.coord.lng], mapRef.current.getZoom());
+        }
+      }}>
+        Center to Rover
+      </button>
+
+      <button onClick={() => {
+        if (mapRef.current && props.waypointActive) {
+          mapRef.current.setView([props.waypoint.lat, props.waypoint.lng], mapRef.current.getZoom());
+        }
+      }}>
+        Center to Waypoint
+      </button>
+
       <button className={status ? "" : "bg-neutral-500"} onClick={toggleStatus}>
         {status ? "Online" : "Offline"}
       </button>
