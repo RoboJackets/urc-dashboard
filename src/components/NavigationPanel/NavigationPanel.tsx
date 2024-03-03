@@ -11,21 +11,33 @@ export const Navigation = (props: NavigationPanelPrpos) => {
   const [coord, setCoord] = useState<Coordinate>({
     lat: 38.409,
     lng: -110.7917,
-    id: 0,
+    id: "R",
   });
   const [waypoint, setWaypoint] = useState<Coordinate>(coord);
   const [waypointActive, setWaypointActive] = useState(false);
+  const [baseCoord, setBaseCoord] = useState<Coordinate>(coord);
+  const [baseCoordActive, setBaseCoordActive] = useState<boolean>(false);
 
   return (
     <div className="flex flex-col card">
       <div className="card-title">Navigation Panel</div>
       <div className="flex gap-2">
-        <Map waypoint={waypoint} waypointActive={waypointActive} coord={coord} />
+        <Map
+          waypoint={waypoint}
+          waypointActive={waypointActive}
+          coord={coord}
+          baseCoord={baseCoord}
+          baseCoordActive={baseCoordActive}
+        />
 
         <GPS
           coord={coord}
-          setCoord={setCoord}
+          baseCoord={baseCoord}
+          baseCoordActive={baseCoordActive}
           ROS={props.ROS}
+          setCoord={setCoord}
+          setBaseCoord={setBaseCoord}
+          setBaseCoordActive={setBaseCoordActive}
         />
         
         <Waypoint

@@ -9,7 +9,10 @@ interface MapProps {
   waypoint: Coordinate;
   waypointActive: boolean;
   coord: Coordinate;
+  baseCoord: Coordinate;
+  baseCoordActive: boolean;
 }
+
 export const Map = (props: MapProps) => {
   const [status, setStatus] = useState(true);
 
@@ -17,10 +20,10 @@ export const Map = (props: MapProps) => {
     setStatus(!status);
   };
 
-  const createCustomIcon = (waypoint: Coordinate) => {
+  const createCustomIcon = (point: Coordinate) => {
     return L.divIcon({
       className: "waypoint-marker",
-      html: `<div class="marker-content">${waypoint.id}</div>`,
+      html: `<div class="marker-content">${point.id}</div>`,
     });
   };
 
@@ -37,9 +40,16 @@ export const Map = (props: MapProps) => {
       >
         {props.waypointActive &&
           <Marker
-            key={1}
+            key={props.waypoint.id}
             position={[props.waypoint.lat, props.waypoint.lng]}
             icon={createCustomIcon(props.waypoint)}
+          />
+        }
+        {props.baseCoordActive &&
+          <Marker
+            key={props.baseCoord.id}
+            position={[props.baseCoord.lat, props.baseCoord.lng]}
+            icon={createCustomIcon(props.baseCoord)}
           />
         }
         <Marker

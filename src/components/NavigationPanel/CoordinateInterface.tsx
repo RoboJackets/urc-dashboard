@@ -1,5 +1,5 @@
 export interface Coordinate {
-  id: number;
+  id: string;
   lat: number;
   lng: number;
 }
