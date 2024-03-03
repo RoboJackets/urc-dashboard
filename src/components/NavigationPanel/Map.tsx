@@ -56,21 +56,23 @@ export const Map = (props: MapProps) => {
           <TileLayer url="/static/map/{z}/{x}/{y}.png" errorTileUrl="error" />
         )}
       </MapContainer>
-      <button onClick={() => {
-        if (mapRef.current) {
-          mapRef.current.setView([props.coord.lat, props.coord.lng], mapRef.current.getZoom());
-        }
-      }}>
-        Center to Rover
-      </button>
+      <div className="flex flex-row">
+        <button className="flex-grow mr-1" onClick={() => {
+          if (mapRef.current) {
+            mapRef.current.setView([props.coord.lat, props.coord.lng], mapRef.current.getZoom());
+          }
+        }}>
+          Center to Rover
+        </button>
 
-      <button onClick={() => {
-        if (mapRef.current && props.waypointActive) {
-          mapRef.current.setView([props.waypoint.lat, props.waypoint.lng], mapRef.current.getZoom());
-        }
-      }}>
-        Center to Waypoint
-      </button>
+        <button className="flex-grow ml-1" onClick={() => {
+          if (mapRef.current && props.waypointActive) {
+            mapRef.current.setView([props.waypoint.lat, props.waypoint.lng], mapRef.current.getZoom());
+          }
+        }}>
+          Center to Waypoint
+        </button>
+      </div>
 
       <button className={status ? "" : "bg-neutral-500"} onClick={toggleStatus}>
         {status ? "Online" : "Offline"}
