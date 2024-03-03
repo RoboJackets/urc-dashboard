@@ -1,4 +1,5 @@
 import { ControlPanel } from "./components/ControlPanel/ControlPanel";
+import { InfoPanel } from "./components/InfoPanel/InfoPanel";
 import ROSLIB from "roslib";
 import { Navigation } from "./components/NavigationPanel/NavigationPanel";
 import { useState } from "react";
@@ -25,13 +26,16 @@ function App() {
   );
 
   const renderPanels = () => (
-    <div className="App w-screen h-screen p-2 flex gap-2">
-      <ControlPanel
-				ROS={ROS}
-				toggleHostSet={toggleHostSet}
-				setHost={setHost}
-				defaultHost={defaultHost}
-			/>
+    <div className="App flex h-screen flex-col">
+      <div className="App w-screen p-2 flex gap-2">
+        <ControlPanel
+          ROS={ROS}
+          toggleHostSet={toggleHostSet}
+          setHost={setHost}
+          defaultHost={defaultHost}
+        />
+        <InfoPanel ROS={ROS} />
+      </div>
       <Navigation ROS={ROS} />
     </div>
   );

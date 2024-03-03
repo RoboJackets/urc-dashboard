@@ -6,8 +6,9 @@ import { useState } from "react";
 import { Coordinate } from "./CoordinateInterface";
 
 interface MapProps {
-  waypoints: Coordinate[];
-  odometry: Coordinate;
+  waypoint: Coordinate;
+  waypointActive: boolean;
+  coord: Coordinate;
 }
 export const Map = (props: MapProps) => {
   const [status, setStatus] = useState(true);
@@ -15,8 +16,6 @@ export const Map = (props: MapProps) => {
   const toggleStatus = () => {
     setStatus(!status);
   };
-  const lat: number = 38.409;
-  const lng: number = -110.7917;
 
   const createCustomIcon = (waypoint: Coordinate) => {
     return L.divIcon({
@@ -29,26 +28,22 @@ export const Map = (props: MapProps) => {
     className: "robot-marker",
     html: `<div class="marker-content">R</div>`,
   });
+  
   return (
-    <div className=" card">
+    <div className="card">
       <MapContainer
-        center={[lat, lng]}
+        center={[props.coord.lat, props.coord.lng]}
         zoom={11}
-        maxBounds={[
-          [38.48, -110.87],
-          [38.33, -110.71],
-        ]}
       >
-        {props.waypoints.map((waypoint) => (
+        {props.waypointActive &&
           <Marker
-            key={waypoint.id}
-            position={[waypoint.lat, waypoint.lng]}
-            icon={createCustomIcon(waypoint)}
+            key={1}
+            position={[props.waypoint.lat, props.waypoint.lng]}
+            icon={createCustomIcon(props.waypoint)}
           />
-        ))}
-
+        }
         <Marker
-          position={[props.odometry.lat, props.odometry.lng]}
+          position={[props.coord.lat, props.coord.lng]}
           icon={robotMarker}
         />
 
