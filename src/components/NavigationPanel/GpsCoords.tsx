@@ -46,7 +46,7 @@ export const GPS = (props: GpsProps) => {
   return (
     <div className="card">
       <div className="card-subtitle">GPS Coordinates</div>
-      <div className="whitespace-nowrap">{`Lat: ${props.coord.lat.toPrecision(5)},  Lng: ${props.coord.lng.toPrecision(5)}`}</div>
+      <div className="whitespace-nowrap">{`Lat: ${props.coord.lat.toPrecision(9)},  Lng: ${props.coord.lng.toPrecision(9)}`}</div>
       <button onClick={() => {
         props.setBaseCoord({id: "B", lat: props.coord.lat, lng: props.coord.lng});
         baseTopic.publish(new ROSLIB.Message({
