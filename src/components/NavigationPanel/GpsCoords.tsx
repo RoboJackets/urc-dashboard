@@ -1,14 +1,13 @@
 import { useEffect } from "react";
 import ROSLIB from "roslib";
 import { Coordinate } from "./CoordinateInterface";
+
 interface GpsProps {
   coord: Coordinate;
   baseCoord: Coordinate;
-  baseCoordActive: boolean;
   ROS: any;
   setCoord: Function;
   setBaseCoord: Function;
-  setBaseCoordActive: Function;
 }
 
 export const GPS = (props: GpsProps) => {
@@ -31,22 +30,31 @@ export const GPS = (props: GpsProps) => {
         id: "R",
         lat: message.latitude,
         lng: message.longitude
-      })
+      });
+    });
+
+    baseTopic.subscribe((message: any) => {
+      if (message.data) {
+        props.setBaseCoord({
+          id: "B",
+          lat: props.coord.lat,
+          lng: props.coord.lng
+        });
+      }
     });
   });
   return (
     <div className="card">
       <div className="card-subtitle">GPS Coordinates</div>
       <div className="whitespace-nowrap">{`Lat: ${props.coord.lat.toPrecision(5)},  Lng: ${props.coord.lng.toPrecision(5)}`}</div>
-      <div className="whitespace-nowrap">{`Writing Base Coords: ${props.baseCoordActive ? "True" : "False"}`}</div>
       <button onClick={() => {
-        baseTopic.publish(new ROSLIB.Message({
-          data: !props.baseCoordActive
-        }));
         props.setBaseCoord({id: "B", lat: props.coord.lat, lng: props.coord.lng});
-        props.setBaseCoordActive(!props.baseCoordActive);
+        baseTopic.publish(new ROSLIB.Message({
+          data: true
+        }));
+        console.log(props.coord);
       }}>
-        Toggle Base Coordinate Update
+        Update Base Coordinates
       </button>
     </div>
   );

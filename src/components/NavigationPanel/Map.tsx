@@ -10,7 +10,6 @@ interface MapProps {
   waypointActive: boolean;
   coord: Coordinate;
   baseCoord: Coordinate;
-  baseCoordActive: boolean;
 }
 
 export const Map = (props: MapProps) => {
@@ -32,6 +31,8 @@ export const Map = (props: MapProps) => {
     html: `<div class="marker-content">R</div>`,
   });
   
+  console.log(props.baseCoord);
+
   return (
     <div className="card">
       <MapContainer
@@ -45,13 +46,11 @@ export const Map = (props: MapProps) => {
             icon={createCustomIcon(props.waypoint)}
           />
         }
-        {props.baseCoordActive &&
-          <Marker
-            key={props.baseCoord.id}
-            position={[props.baseCoord.lat, props.baseCoord.lng]}
-            icon={createCustomIcon(props.baseCoord)}
-          />
-        }
+        <Marker
+          key={props.baseCoord.id}
+          position={[props.baseCoord.lat, props.baseCoord.lng]}
+          icon={createCustomIcon(props.baseCoord)}
+        />
         <Marker
           position={[props.coord.lat, props.coord.lng]}
           icon={robotMarker}
