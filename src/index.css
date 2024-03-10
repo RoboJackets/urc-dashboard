@@ -31,11 +31,15 @@ input {
 }
 
 .waypoint-marker {
-  @apply p-2 bg-blue-500 rounded-sm shadow-black shadow-lg border-gray-200 border-2;
+  @apply p-2 rounded-sm shadow-black shadow-lg border-gray-200 border-2;
 }
 
 .robot-marker {
-  @apply p-2 bg-green-500 rounded-sm shadow-black shadow-lg border-gray-200 border-2;
+  @apply p-2 rounded-sm shadow-black shadow-lg border-gray-200 border-2;
+}
+
+.base-marker {
+  @apply p-2 rounded-sm shadow-black shadow-lg border-gray-200 border-2;
 }
 
 .marker-content {

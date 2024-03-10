@@ -54,7 +54,7 @@ export const GPS = (props: GpsProps) => {
         }));
         console.log(props.coord);
       }}>
-        Update Base Coordinates
+        Set Base Station
       </button>
     </div>
   );

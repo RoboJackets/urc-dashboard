@@ -19,20 +19,13 @@ export const Map = (props: MapProps) => {
     setStatus(!status);
   };
 
-  const createCustomIcon = (point: Coordinate) => {
+  const createCustomIcon = (id: string, color: string) => {
     return L.divIcon({
-      className: "waypoint-marker",
-      html: `<div class="marker-content">${point.id}</div>`,
+      className: `waypoint-marker ${color}`,
+      html: `<div class="marker-content">${id}</div>`,
     });
   };
-
-  const robotMarker = L.divIcon({
-    className: "robot-marker",
-    html: `<div class="marker-content">R</div>`,
-  });
   
-  console.log(props.baseCoord);
-
   return (
     <div className="card">
       <MapContainer
@@ -43,17 +36,17 @@ export const Map = (props: MapProps) => {
           <Marker
             key={props.waypoint.id}
             position={[props.waypoint.lat, props.waypoint.lng]}
-            icon={createCustomIcon(props.waypoint)}
+            icon={createCustomIcon(props.waypoint.id, "bg-blue-500")}
           />
         }
         <Marker
           key={props.baseCoord.id}
           position={[props.baseCoord.lat, props.baseCoord.lng]}
-          icon={createCustomIcon(props.baseCoord)}
+          icon={createCustomIcon(props.baseCoord.id, "bg-red-500")}
         />
         <Marker
           position={[props.coord.lat, props.coord.lng]}
-          icon={robotMarker}
+          icon={createCustomIcon(props.coord.id, "bg-green-500")}
         />
 
         {status ? (
