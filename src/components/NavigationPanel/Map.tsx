@@ -10,7 +10,9 @@ interface MapProps {
   waypoint: Coordinate;
   waypointActive: boolean;
   coord: Coordinate;
+  baseCoord: Coordinate;
 }
+
 export const Map = (props: MapProps) => {
   const [status, setStatus] = useState(true);
   const mapRef = useRef<any>(null);
@@ -19,17 +21,12 @@ export const Map = (props: MapProps) => {
     setStatus(!status);
   };
 
-  const createCustomIcon = (waypoint: Coordinate) => {
+  const createCustomIcon = (id: string, color: string) => {
     return L.divIcon({
-      className: "waypoint-marker",
-      html: `<div class="marker-content">${waypoint.id}</div>`,
+      className: `waypoint-marker ${color}`,
+      html: `<div class="marker-content">${id}</div>`,
     });
   };
-
-  const robotMarker = L.divIcon({
-    className: "robot-marker",
-    html: `<div class="marker-content">R</div>`,
-  });
   
   return (
     <div className="card">
@@ -40,14 +37,19 @@ export const Map = (props: MapProps) => {
       >
         {props.waypointActive &&
           <Marker
-            key={1}
+            key={props.waypoint.id}
             position={[props.waypoint.lat, props.waypoint.lng]}
-            icon={createCustomIcon(props.waypoint)}
+            icon={createCustomIcon(props.waypoint.id, "bg-blue-500")}
           />
         }
         <Marker
+          key={props.baseCoord.id}
+          position={[props.baseCoord.lat, props.baseCoord.lng]}
+          icon={createCustomIcon(props.baseCoord.id, "bg-red-500")}
+        />
+        <Marker
           position={[props.coord.lat, props.coord.lng]}
-          icon={robotMarker}
+          icon={createCustomIcon(props.coord.id, "bg-green-500")}
         />
 
         {status ? (

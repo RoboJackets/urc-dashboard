@@ -31,7 +31,7 @@ export const Waypoint = (props: WaypointProps) => {
   useEffect(() => {
     WaypointTopic.subscribe((message: any) => {
       props.setWaypoint({
-        id: 1,
+        id: "W",
         lat: message.latitude,
         lng: message.longitude,
       })
@@ -69,7 +69,7 @@ export const Waypoint = (props: WaypointProps) => {
       </div>
       <button onClick={() => {
         props.setWaypoint({
-          id: 1,
+          id: "W",
           lat: lat,
           lng: lng
         });
