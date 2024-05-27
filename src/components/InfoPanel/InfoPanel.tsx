@@ -21,11 +21,7 @@ export const InfoPanel = (props: InfoPanelProps) => {
         angular={angular}
         setAngular={setAngular}
       />
-      <IMU
-        ROS={props.ROS}
-        rho={rho}
-        setRho={setRho}
-      />
+      <IMU ROS={props.ROS} rho={rho} setRho={setRho} />
     </div>
   );
-}
+};
