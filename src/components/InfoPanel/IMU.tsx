@@ -17,14 +17,20 @@ export const IMU = (props: IMUProps) => {
   });
 
   const [ImuStatus, setImuStatus] = useState<StatusColors>(StatusColors.RED);
+  const [lastSeen, setLastSeen] = useState<number>(Date.now() - 3000);
 
   useEffect(() => {
-    IMUTopic.subscribe((message: any) => {
-      setImuStatus(StatusColors.GREEN);
-      const timeoutId = setTimeout(() => {
+    const interval = setInterval(() => {
+      if (Date.now() - lastSeen > 1000) {
         setImuStatus(StatusColors.RED);
-      }, 2000);
+      } else {
+        setImuStatus(StatusColors.GREEN);
+      }
+    }, 1000);
 
+    IMUTopic.subscribe((message: any) => {
+      setLastSeen(Date.now());
+      setImuStatus(StatusColors.GREEN);
       const [x, y, z, w]: number[] = [
         message.orientation.x,
         message.orientation.y,
@@ -46,9 +52,9 @@ export const IMU = (props: IMUProps) => {
         eulerZ = Math.atan2(2 * x * w - 2 * y * z, -sqx + sqy - sqz + sqw);
       }
       props.setRho(eulerZ);
-
-      return () => clearTimeout(timeoutId);
     });
+
+    return () => clearInterval(interval);
   });
 
   return (
