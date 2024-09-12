@@ -1,0 +1,34 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+.rootContainer {
+
+    width: 100vw;
+    height: 60px;
+    background-color: gray;
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logoWithImage {
+
+    margin-left: 10px;
+    display:flex;
+    flex-direction:row;
+    align-items: center;
+}
+
+.text3 {
+    margin-right: 20px;
+}
+
+.logo {
+
+    height: 40px;
+    width: 40px;
+    margin-right: 10px;
+}
