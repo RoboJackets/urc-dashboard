@@ -4,6 +4,7 @@ import ROSLIB from "roslib";
 import { Navigation } from "./components/NavigationPanel/NavigationPanel";
 import { useState } from "react";
 import { HostInput } from "./components/HostInput/HostInput";
+import Header  from "./header.js"
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -58,49 +59,53 @@ function App() {
   // );
 
   const renderPanels = () => (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        <Grid size={2}>
-          <Stack spacing={2}>
-            <Paper elevation={3} style={{ height: "100px", width: "100%" }}>
-              Status Panel
-            </Paper>
-            <Paper elevation={3} style={{ height: "100px", width: "100%" }}>
-              IMU Visualization
-            </Paper>
-            <Paper elevation={3} style={{ height: "100px", width: "100%" }}>
-              Cmd Vel Visualization
-            </Paper>
-            <Paper elevation={3} style={{ height: "100px", width: "100%" }}>
-              Control Panel
-            </Paper>
-          </Stack>
+    <>
+    
+      <Header/>
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={2}>
+          <Grid size={2}>
+            <Stack spacing={2} sx={{height: "100vh", justifyContent: "space-around"}}>
+              <Paper elevation={3} style={{ height: "23vh", width: "100%"}}>
+                Temp Text
+              </Paper>
+              <Paper elevation={3} style={{ height: "23vh", width: "100%" }}>
+                IMU Visualization
+              </Paper>
+              <Paper elevation={3} style={{ height: "23vh", width: "100%" }}>
+                Cmd Vel Visualization
+              </Paper>
+              <Paper elevation={3} style={{ height: "23vh", width: "100%" }}>
+                Control Panel
+              </Paper>
+            </Stack>
+          </Grid>
+          <Grid size={5}>
+            <Stack spacing={2}>
+              <Paper elevation={3} style={{ height: "100px", width: "100%" }}>
+                Camera Feed(s)
+              </Paper>
+              <Paper elevation={3} style={{ height: "100px", width: "100%" }}>
+                NUC Stdout
+              </Paper>
+            </Stack>
+          </Grid>
+          <Grid size={5}>
+            <Stack spacing={2}>
+              <Paper elevation={3}>
+                <Navigation ROS={ROS} />
+              </Paper>
+              <Paper elevation={3} style={{ height: "100px", width: "100%" }}>
+                Navigation Info (current lat/lon, altitude, navigation status)
+              </Paper>
+              <Paper elevation={3} style={{ height: "100px", width: "100%" }}>
+                Waypoint panel
+              </Paper>
+            </Stack>
+          </Grid>
         </Grid>
-        <Grid size={5}>
-          <Stack spacing={2}>
-            <Paper elevation={3} style={{ height: "100px", width: "100%" }}>
-              Camera Feed(s)
-            </Paper>
-            <Paper elevation={3} style={{ height: "100px", width: "100%" }}>
-              NUC Stdout
-            </Paper>
-          </Stack>
-        </Grid>
-        <Grid size={5}>
-          <Stack spacing={2}>
-            <Paper elevation={3} style={{ height: "100px", width: "100%" }}>
-              Map
-            </Paper>
-            <Paper elevation={3} style={{ height: "100px", width: "100%" }}>
-              Navigation Info (current lat/lon, altitude, navigation status)
-            </Paper>
-            <Paper elevation={3} style={{ height: "100px", width: "100%" }}>
-              Waypoint panel
-            </Paper>
-          </Stack>
-        </Grid>
-      </Grid>
-    </Box>
+      </Box>
+    </>
   );
 
   return (
