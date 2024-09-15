@@ -62,43 +62,43 @@ function App() {
     <>
     
       <Header/>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          <Grid size={2}>
-            <Stack spacing={2} sx={{height: "100vh", justifyContent: "space-around"}}>
-              <Paper elevation={3} style={{ height: "23vh", width: "100%"}}>
-                Temp Text
+      <Box sx={{ flexGrow: 1 , height: "95vh", padding: "10px"}}>
+        <Grid container spacing={2} sx={{height: "100%"}}>
+          <Grid size={2} sx={{height: "100%"}}>
+            <Stack spacing={2} sx={{height: "100%", justifyContent: "space-around"}}>
+              <Paper elevation={3} style={{ height: "23%", width: "100%", marginTop: "1%", marginBottom: "1%"}}>
+                Status Panel
               </Paper>
-              <Paper elevation={3} style={{ height: "23vh", width: "100%" }}>
+              <Paper elevation={3} style={{ height: "23%", width: "100%", marginTop: "1%", marginBottom: "1%"}}>
                 IMU Visualization
               </Paper>
-              <Paper elevation={3} style={{ height: "23vh", width: "100%" }}>
+              <Paper elevation={3} style={{ height: "23%", width: "100%", marginTop: "1%", marginBottom: "1%"}}>
                 Cmd Vel Visualization
               </Paper>
-              <Paper elevation={3} style={{ height: "23vh", width: "100%" }}>
+              <Paper elevation={3} style={{ height: "23%", width: "100%", marginTop: "1%", marginBottom: "1%"}}>
                 Control Panel
               </Paper>
             </Stack>
           </Grid>
-          <Grid size={5}>
-            <Stack spacing={2}>
-              <Paper elevation={3} style={{ height: "100px", width: "100%" }}>
+          <Grid size={5} sx={{height: "100%"}}>
+            <Stack spacing={2}  sx={{height: "100%", justifyContent: "space-around"}}>
+              <Paper elevation={3} style={{ height: "73%", width: "100%" , marginTop: "1%", marginBottom: "1%"}}>
                 Camera Feed(s)
               </Paper>
-              <Paper elevation={3} style={{ height: "100px", width: "100%" }}>
+              <Paper elevation={3} style={{ height: "23%", width: "100%" , marginTop: "1%", marginBottom: "1%"}}>
                 NUC Stdout
               </Paper>
             </Stack>
           </Grid>
-          <Grid size={5}>
-            <Stack spacing={2}>
-              <Paper elevation={3}>
+          <Grid size={5} sx={{height: "100%"}}>
+            <Stack spacing={2}  sx={{height: "100%", justifyContent: "space-around"}}>
+              <Paper elevation={3} style={{ height: "48%", width: "100%" , marginTop: "1%", marginBottom: "1%", minHeight: "300px"}}>
                 <Navigation ROS={ROS} />
               </Paper>
-              <Paper elevation={3} style={{ height: "100px", width: "100%" }}>
+              <Paper elevation={3} style={{ height: "8%", width: "100%" , marginTop: "1%", marginBottom: "1%"}}>
                 Navigation Info (current lat/lon, altitude, navigation status)
               </Paper>
-              <Paper elevation={3} style={{ height: "100px", width: "100%" }}>
+              <Paper elevation={3} style={{ height: "38%", width: "100%" , marginTop: "1%", marginBottom: "1%"}}>
                 Waypoint panel
               </Paper>
             </Stack>
