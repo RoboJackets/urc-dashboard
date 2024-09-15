@@ -11,7 +11,7 @@ export default function Header() {
             <div className="logoWithImage">
             <img className="logo" src={logo} width={40} height={40} alt="Italian Trulli"/>                <p className="text1">ROBONAV</p>
             </div>
-            <p className="text2">WALL-I Dashboard</p>
+            <p className="titleText">WALL-I Dashboard</p>
             <div className="connectionStatus">
                 <p className="roverText">Rover : </p>
                 <p className="connectionText">Disconnected</p>

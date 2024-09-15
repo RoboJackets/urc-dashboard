@@ -58,6 +58,12 @@ function App() {
   //   </div>
   // );
 
+  // const renderPanels = () => (
+  //   <div className="App flex h-screen flex-col">
+  //     <Navigation ROS={ROS} />
+  //   </div>
+  // );
+
   const renderPanels = () => (
     <>
     
