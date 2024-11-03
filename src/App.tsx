@@ -29,6 +29,10 @@ function App() {
   );
   const [hostSet, toggleHostSet] = useState(storedHost != null);
 
+  const [isDark, toggleIsDark] = useState(
+    document.documentElement.classList.contains("dark")
+  );
+
   if (hostSet) {
     localStorage.setItem("ip", host);
     ROS = new ROSLIB.Ros({ url: "ws://" + host + ":9090" });
@@ -82,7 +86,14 @@ function App() {
                 Cmd Vel Visualization
               </Paper>
               <Paper elevation={3} style={{ height: "23%", width: "100%", marginTop: "1%", marginBottom: "1%"}}>
-                Control Panel
+                <ControlPanel
+                  ROS={ROS}
+                  toggleHostSet={toggleHostSet}
+                  setHost={setHost}
+                  defaultHost={defaultHost}
+                  isDark={isDark}
+                  toggleIsDark={toggleIsDark}
+                />
               </Paper>
             </Stack>
           </Grid>

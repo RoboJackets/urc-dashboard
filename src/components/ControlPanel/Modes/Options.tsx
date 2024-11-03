@@ -1,7 +1,7 @@
-import { Option } from "./Option";
 import ROSLIB from "roslib";
-import { OptionState } from "./Modes";
 import { useEffect } from "react";
+import { Box, Typography, Switch } from "@mui/material";
+import { OptionState } from "./Modes";
 
 interface OptionsProps {
   mode: OptionState;
@@ -24,23 +24,25 @@ export const Options = (props: OptionsProps) => {
       name: topicName,
       messageType: messageType,
     });
-  });
+  }, [props.ROS, topicName, messageType]);
 
   const updateIdx = (idx: number) => {
     setCurIdx(idx);
     topic.publish(new ROSLIB.Message({ data: values[idx] }));
   };
+
   return (
-    <div className="flex flex-col p-1 gap-1 border dark:border-neutral-700 rounded-md h-min">
+    <Box display="flex" flexDirection="column" p={1} gap={1} border={1} borderColor="grey.400" borderRadius={1}>
       {values.map((value: string, idx: number) => (
-        <Option
-          key={idx}
-          value={value}
-          idx={idx}
-          curIdx={curIdx}
-          updateIdx={updateIdx}
-        />
+        <Box key={idx} display="flex" alignItems="center">
+          <Switch
+            checked={curIdx === idx}
+            onChange={() => updateIdx(idx)}
+            color="primary"
+          />
+          <Typography variant="body2">{value}</Typography>
+        </Box>
       ))}
-    </div>
+    </Box>
   );
 };
