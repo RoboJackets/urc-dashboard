@@ -13,12 +13,9 @@ export enum StatusColors {
 }
 
 export const Statuses = (props: StatusesProps) => {
-  const [bridgeStatus, setBridgeStatus] = useState<StatusColors>(
-    StatusColors.RED
-  );
-  const [robotStatus, setRobotStatus] = useState<StatusColors>(
-    StatusColors.RED
-  );
+  const [bridgeStatus, setBridgeStatus] = useState<StatusColors>(StatusColors.RED);
+  const [robotStatus, setRobotStatus] = useState<StatusColors>(StatusColors.RED);
+
   // Rosbridge Status
   props.ROS.on("connection", () => setBridgeStatus(StatusColors.GREEN));
   props.ROS.on("error", (e) => {
