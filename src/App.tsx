@@ -15,6 +15,7 @@ import React from 'react';
 import { Longitude } from './Longitude';
 import { Latitude } from './Latitude';
 import { WaypointsManager } from './WaypointsManager';
+import { StatusPanel } from "./components/ControlPanel/Statuses/StatusPanel"
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -97,7 +98,10 @@ function App() {
                   marginBottom: "1%",
                 }}
               >
-                Status Panel
+                <StatusPanel
+                  ROS={ROS}
+                  isDark={isDark}
+                />
               </Paper>
               <Paper
                 elevation={3}
