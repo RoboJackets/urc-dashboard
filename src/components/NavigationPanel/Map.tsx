@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { useState } from "react";
 import { Coordinate } from "./CoordinateInterface";
+import { Button } from "@mui/material";
 
 interface MapProps {
   waypoint: Coordinate;
@@ -28,13 +29,31 @@ export const Map = (props: MapProps) => {
     });
   };
 
+  const centerToRover = () => {
+    if (mapRef.current) {
+      mapRef.current.setView(
+        [props.coord.lat, props.coord.lng],
+        mapRef.current.getZoom()
+      );
+    }
+  };
+
+  const centerToWaypoint = () => {
+    if (mapRef.current && props.waypointActive) {
+      mapRef.current.setView(
+        [props.waypoint.lat, props.waypoint.lng],
+        mapRef.current.getZoom()
+      );
+    }
+  };
+
   return (
-    <div className="card">
+    <div className="flex-1 flex flex-col card relative p-2 gap-2">
       <MapContainer
         center={[props.coord.lat, props.coord.lng]}
         zoom={11}
         ref={mapRef}
-        style={{ height: 250, width: "100%" }}
+        style={{ height: "100%", width: "100%" }}
       >
         {props.waypointActive && (
           <Marker
@@ -59,39 +78,17 @@ export const Map = (props: MapProps) => {
           <TileLayer url="/static/map/{z}/{x}/{y}.png" errorTileUrl="error" />
         )}
       </MapContainer>
-      <div className="flex flex-row">
-        <button
-          className="flex-grow mr-1"
-          onClick={() => {
-            if (mapRef.current) {
-              mapRef.current.setView(
-                [props.coord.lat, props.coord.lng],
-                mapRef.current.getZoom()
-              );
-            }
-          }}
-        >
+      <div className="flex justify-center items-center gap-3">
+        <Button variant="contained" onClick={centerToRover}>
           Center to Rover
-        </button>
-
-        <button
-          className="flex-grow ml-1"
-          onClick={() => {
-            if (mapRef.current && props.waypointActive) {
-              mapRef.current.setView(
-                [props.waypoint.lat, props.waypoint.lng],
-                mapRef.current.getZoom()
-              );
-            }
-          }}
-        >
+        </Button>
+        <Button variant="contained" onClick={centerToWaypoint}>
           Center to Waypoint
-        </button>
+        </Button>
+        <Button variant="outlined" onClick={toggleStatus}>
+          {status ? "Online" : "Offline"}
+        </Button>
       </div>
-
-      <button className={status ? "" : "bg-neutral-500"} onClick={toggleStatus}>
-        {status ? "Online" : "Offline"}
-      </button>
     </div>
   );
 };

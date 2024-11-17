@@ -22,31 +22,15 @@ export const Navigation = (props: NavigationPanelPrpos) => {
   });
 
   return (
-    <div className="flex flex-col card">
+    <div className="flex h-full flex-col card">
       <div className="card-title">Navigation Panel</div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 h-full">
         <Map
           waypoint={waypoint}
           waypointActive={waypointActive}
           coord={coord}
           baseCoord={baseCoord}
         />
-
-        {/* <GPS
-          coord={coord}
-          baseCoord={baseCoord}
-          ROS={props.ROS}
-          setCoord={setCoord}
-          setBaseCoord={setBaseCoord}
-        />
-        
-        <Waypoint
-          waypoint={waypoint}
-          setWaypoint={setWaypoint}
-          waypointActive={waypointActive}
-          setWaypointActive={setWaypointActive}
-          ROS={props.ROS}
-        /> */}
       </div>
     </div>
   );
