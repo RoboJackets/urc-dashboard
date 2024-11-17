@@ -10,6 +10,11 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid2";
 import Paper from "@mui/material/Paper";
+import React from 'react';
+
+import { Longitude } from './Longitude';
+import { Latitude } from './Latitude';
+import { WaypointsManager } from './WaypointsManager';
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -21,6 +26,11 @@ const darkTheme = createTheme({
 });
 
 function App() {
+  const [containers, setContainers] = React.useState<number[]>([0, 1, 2]); // Initial state with two containers
+
+  const handleDeleteContainer = (index: number) => {
+    setContainers(containers.filter((_, i) => i !== index)); // Remove container at the specified index
+  };
   let ROS: ROSLIB.Ros;
   let defaultHost = "10.52.158.40";
   let storedHost = localStorage.getItem("ip");
@@ -117,6 +127,7 @@ function App() {
               </Paper>
               <Paper elevation={3} style={{ height: "38%", width: "100%" , marginTop: "1%", marginBottom: "1%"}}>
                 Waypoint panel
+                <WaypointsManager />
               </Paper>
             </Stack>
           </Grid>
