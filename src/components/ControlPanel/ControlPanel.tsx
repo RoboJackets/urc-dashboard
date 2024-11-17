@@ -1,8 +1,5 @@
-import { Card, Box, CardContent, CardHeader, Typography, useTheme } from "@mui/material";
-import { useState } from "react";
+import { Card, Box, CardContent, CardHeader, Typography } from "@mui/material";
 import { Modes } from "./Modes/Modes";
-import { Statuses } from "./Statuses/Statuses";
-import { Gamepad } from "./Gamepad/Gamepad";
 import { ToggleTheme } from "./ToggleTheme";
 import { ChangeIP } from "./ChangeIP/ChangeIP"
 
@@ -51,11 +48,7 @@ export const ControlPanel = (props: ControlPanelProps) => {
             />
             <ToggleTheme isDark={props.isDark} toggleIsDark={props.toggleIsDark}/>
           </Box>
-
-          <Box display="flex" gap={2} justifyContent="center" mt={2}>
             <Modes ROS={props.ROS} />
-            <Gamepad ROS={props.ROS} />
-          </Box>
         </Box>
       </CardContent>
     </Card>

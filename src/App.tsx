@@ -1,11 +1,15 @@
+// importing files from other components
 import { ControlPanel } from "./components/ControlPanel/ControlPanel";
 import { InfoPanel } from "./components/InfoPanel/InfoPanel";
-import ROSLIB from "roslib";
+import { StatusPanel } from "./components/StatusPanel/StatusPanel";
 import { Navigation } from "./components/NavigationPanel/NavigationPanel";
-import { useState } from "react";
 import { HostInput } from "./components/HostInput/HostInput";
+
+import ROSLIB from "roslib";
+import { useState } from "react";
 import Header  from "./header.js"
 
+// importing materialUI components
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid2";
@@ -77,7 +81,10 @@ function App() {
           <Grid size={2} sx={{height: "100%"}}>
             <Stack spacing={2} sx={{height: "100%", justifyContent: "space-around"}}>
               <Paper elevation={3} style={{ height: "23%", width: "100%", marginTop: "1%", marginBottom: "1%"}}>
-                Status Panel
+                <StatusPanel
+                  ROS={ROS}
+                  isDark={isDark}
+                />
               </Paper>
               <Paper elevation={3} style={{ height: "23%", width: "100%", marginTop: "1%", marginBottom: "1%"}}>
                 IMU Visualization
