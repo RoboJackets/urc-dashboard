@@ -1,23 +1,29 @@
+import Button from "@mui/material/Button";
+
 interface IPProps {
 	toggleHostSet: Function
 	setHost: Function
 	defaultHost: string
+	isDark: boolean
 }
 
 export const ChangeIP = (props: IPProps) => {
 	return (
-		<div className="flex items-center justify-center">
-			<div className="w-1/3 flex card-subtitle">{localStorage.getItem("ip")}</div>
-			<div className="w-1/3 flex justify-end">
-				<button
-					onClick={() => {
-						props.setHost(props.defaultHost);
-						props.toggleHostSet();
-					}}
-				>
-					Change IP
-				</button>
-			</div>
-		</div>
+		<Button
+			variant="contained"
+			color={props.isDark ? "warning" : "primary"}
+			onClick={() => {
+				props.setHost(props.defaultHost);
+				props.toggleHostSet();
+			}}
+			sx={{
+				"&:hover": {
+				backgroundColor: props.isDark ? "yellow.400" : "yellow.500",
+				},
+				textTransform: "none",
+			}}
+		>
+		Change IP
+		</Button>
 	);
 };

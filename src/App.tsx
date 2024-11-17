@@ -10,6 +10,11 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid2";
 import Paper from "@mui/material/Paper";
+import React from 'react';
+
+import { Longitude } from './Longitude';
+import { Latitude } from './Latitude';
+import { WaypointsManager } from './WaypointsManager';
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -21,6 +26,11 @@ const darkTheme = createTheme({
 });
 
 function App() {
+  const [containers, setContainers] = React.useState<number[]>([0, 1, 2]); // Initial state with two containers
+
+  const handleDeleteContainer = (index: number) => {
+    setContainers(containers.filter((_, i) => i !== index)); // Remove container at the specified index
+  };
   let ROS: ROSLIB.Ros;
   let defaultHost = "10.52.158.40";
   let storedHost = localStorage.getItem("ip");
@@ -28,6 +38,10 @@ function App() {
     storedHost == null ? defaultHost : storedHost
   );
   const [hostSet, toggleHostSet] = useState(storedHost != null);
+
+  const [isDark, toggleIsDark] = useState(
+    document.documentElement.classList.contains("dark")
+  );
 
   if (hostSet) {
     localStorage.setItem("ip", host);
@@ -107,16 +121,15 @@ function App() {
               >
                 Cmd Vel Visualization
               </Paper>
-              <Paper
-                elevation={3}
-                style={{
-                  height: "23%",
-                  width: "100%",
-                  marginTop: "1%",
-                  marginBottom: "1%",
-                }}
-              >
-                Control Panel
+              <Paper elevation={3} style={{ height: "23%", width: "100%", marginTop: "1%", marginBottom: "1%"}}>
+                <ControlPanel
+                  ROS={ROS}
+                  toggleHostSet={toggleHostSet}
+                  setHost={setHost}
+                  defaultHost={defaultHost}
+                  isDark={isDark}
+                  toggleIsDark={toggleIsDark}
+                />
               </Paper>
             </Stack>
           </Grid>
@@ -187,6 +200,7 @@ function App() {
                 }}
               >
                 Waypoint panel
+                <WaypointsManager />
               </Paper>
             </Stack>
           </Grid>

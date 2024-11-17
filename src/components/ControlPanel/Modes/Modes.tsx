@@ -1,5 +1,10 @@
 import { Options } from "./Options";
 import { useState } from "react";
+import { TeleoperationSwitch } from "./TeleoperationSwitch";
+import { EnableSwitch } from "./EnableSwitch"; 
+import { Box, Typography, Card, CardContent } from "@mui/material";
+import ROSLIB from "roslib";
+
 
 interface ModesProps {
   ROS: ROSLIB.Ros;
@@ -16,6 +21,8 @@ export interface OptionState {
 export const Modes = (props: ModesProps) => {
   const [controlIdx, setControlIdx] = useState<number>(0);
   const [toggleIdx, setToggleIdx] = useState<number>(1);
+  const [teleopEnabled, setTeleopEnabled] = useState<boolean>(false);
+  const [enabled, setEnabled] = useState<boolean>(false);
 
   const modes: Record<string, OptionState> = {
     controls: {
@@ -34,16 +41,30 @@ export const Modes = (props: ModesProps) => {
     },
   };
 
+  const handleTeleopToggle = (checked: boolean) => {
+    setTeleopEnabled(checked);
+    const topic = new ROSLIB.Topic({
+      ros: props.ROS,
+      name: modes.controls.topicName,
+      messageType: modes.controls.messageType,
+    });
+    topic.publish(new ROSLIB.Message({ data: checked ? "Teleop" : "Auto" }));
+  };
+
+  const handleEnableToggle = (checked: boolean) => {
+    setEnabled(checked);
+    const topic = new ROSLIB.Topic({
+      ros: props.ROS,
+      name: modes.toggle.topicName,
+      messageType: modes.toggle.messageType,
+    });
+    topic.publish(new ROSLIB.Message({ data: checked }));
+  };
+
   return (
-    <div className="flex gap-2">
-      <div className="card">
-        <div className="card-title">Mode</div>
-        <Options mode={modes.controls} ROS={props.ROS} />
-      </div>
-      <div className="card">
-        <div className="card-title">Behavior</div>
-        <Options mode={modes.toggle} ROS={props.ROS} />
-      </div>
-    </div>
+    <Box display="flex" flexDirection="column" gap={0.1}>
+      <TeleoperationSwitch checked={teleopEnabled} onToggle={handleTeleopToggle} />
+      <EnableSwitch checked={enabled} onToggle={handleEnableToggle} />
+    </Box>
   );
 };
