@@ -16,8 +16,13 @@ export const WaypointsManager: React.FC = () => {
 
   // Add a new waypoint
   const addWaypoint = (): void => {
-    const newWaypoint: Waypoint = { id: Date.now(), latitude: "", longitude: "" };
-    setWaypoints([...waypoints, newWaypoint]);
+    const lastWaypoint = waypoints[waypoints.length - 1];
+    if (lastWaypoint.longitude === "" || lastWaypoint.latitude === "") {
+
+    } else {
+      const newWaypoint: Waypoint = { id: Date.now(), latitude: "", longitude: "" };
+      setWaypoints([...waypoints, newWaypoint]);
+    }
   };
 
   // Remove a waypoint by ID
@@ -81,7 +86,8 @@ export const WaypointsManager: React.FC = () => {
             </IconButton>
             <IconButton
               disabled={index === waypoints.length - 1}
-              onClick={() => moveWaypoint(index, 1)}
+              onClick={
+                () => moveWaypoint(index, 1)}
             >
               <ArrowDownward />
             </IconButton>
