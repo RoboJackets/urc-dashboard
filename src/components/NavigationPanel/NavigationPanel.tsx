@@ -32,7 +32,7 @@ export const Navigation = (props: NavigationPanelPrpos) => {
           baseCoord={baseCoord}
         />
 
-        <GPS
+        {/* <GPS
           coord={coord}
           baseCoord={baseCoord}
           ROS={props.ROS}
@@ -46,7 +46,7 @@ export const Navigation = (props: NavigationPanelPrpos) => {
           waypointActive={waypointActive}
           setWaypointActive={setWaypointActive}
           ROS={props.ROS}
-        />
+        /> */}
       </div>
     </div>
   );

@@ -27,21 +27,22 @@ export const Map = (props: MapProps) => {
       html: `<div class="marker-content">${id}</div>`,
     });
   };
-  
+
   return (
     <div className="card">
       <MapContainer
         center={[props.coord.lat, props.coord.lng]}
         zoom={11}
         ref={mapRef}
+        style={{ height: 250, width: "100%" }}
       >
-        {props.waypointActive &&
+        {props.waypointActive && (
           <Marker
             key={props.waypoint.id}
             position={[props.waypoint.lat, props.waypoint.lng]}
             icon={createCustomIcon(props.waypoint.id, "bg-blue-500")}
           />
-        }
+        )}
         <Marker
           key={props.baseCoord.id}
           position={[props.baseCoord.lat, props.baseCoord.lng]}
@@ -59,19 +60,31 @@ export const Map = (props: MapProps) => {
         )}
       </MapContainer>
       <div className="flex flex-row">
-        <button className="flex-grow mr-1" onClick={() => {
-          if (mapRef.current) {
-            mapRef.current.setView([props.coord.lat, props.coord.lng], mapRef.current.getZoom());
-          }
-        }}>
+        <button
+          className="flex-grow mr-1"
+          onClick={() => {
+            if (mapRef.current) {
+              mapRef.current.setView(
+                [props.coord.lat, props.coord.lng],
+                mapRef.current.getZoom()
+              );
+            }
+          }}
+        >
           Center to Rover
         </button>
 
-        <button className="flex-grow ml-1" onClick={() => {
-          if (mapRef.current && props.waypointActive) {
-            mapRef.current.setView([props.waypoint.lat, props.waypoint.lng], mapRef.current.getZoom());
-          }
-        }}>
+        <button
+          className="flex-grow ml-1"
+          onClick={() => {
+            if (mapRef.current && props.waypointActive) {
+              mapRef.current.setView(
+                [props.waypoint.lat, props.waypoint.lng],
+                mapRef.current.getZoom()
+              );
+            }
+          }}
+        >
           Center to Waypoint
         </button>
       </div>
