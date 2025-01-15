@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { TeleoperationSwitch } from "./TeleoperationSwitch";
 import { EnableSwitch } from "./EnableSwitch"; 
-import { Box, Typography, Card, CardContent } from "@mui/material";
+import { Box } from "@mui/material";
 import ROSLIB from "roslib";
 
-interface ModesProps {
+interface SwitchesProps {
   ROS: ROSLIB.Ros;
 }
 
-export const Modes = (props: ModesProps) => {
+export const Switches = (props: SwitchesProps) => {
   const [teleopEnabled, setTeleopEnabled] = useState<boolean>(false);
   const [enabled, setEnabled] = useState<boolean>(true);
 
@@ -34,7 +34,7 @@ export const Modes = (props: ModesProps) => {
 
   return (
     <Box display="flex" flexDirection="column" gap={0.1}>
-      <TeleoperationSwitch checked={teleopEnabled} onToggle={handleTeleopToggle} />
+      <TeleoperationSwitch checked={teleopEnabled} onToggle={handleTeleopToggle} disabled = {!enabled}/>
       <EnableSwitch checked={enabled} onToggle={handleEnableToggle} />
     </Box>
   );

@@ -33,6 +33,7 @@ function App() {
   );
   const [hostSet, toggleHostSet] = useState(storedHost != null);
 
+  // dark theme variable: keeps track of the theme to pass in to all panels
   const [isDark, toggleIsDark] = useState(
     document.documentElement.classList.contains("dark")
   );
@@ -51,36 +52,14 @@ function App() {
     />
   );
 
-  // const renderPanels = () => (
-  //   <div className="App flex h-screen flex-col">
-  //     <div className="App w-screen p-2 flex gap-2">
-  //       <ControlPanel
-  //         ROS={ROS}
-  //         toggleHostSet={toggleHostSet}
-  //         setHost={setHost}
-  //         defaultHost={defaultHost}
-  //       />
-  //       <InfoPanel ROS={ROS} />
-  //     </div>
-  //     <Navigation ROS={ROS} />
-  //   </div>
-  // );
-
-  // const renderPanels = () => (
-  //   <div className="App flex h-screen flex-col">
-  //     <Navigation ROS={ROS} />
-  //   </div>
-  // );
-
   const renderPanels = () => (
     <>
-    
       <Header/>
       <Box sx={{ flexGrow: 1 , height: "95vh", padding: "10px"}}>
         <Grid container spacing={2} sx={{height: "100%"}}>
           <Grid size={2} sx={{height: "100%"}}>
             <Stack spacing={2} sx={{height: "100%", justifyContent: "space-around"}}>
-              <Paper elevation={3} style={{ height: "23%", width: "100%", marginTop: "1%", marginBottom: "1%"}}>
+              <Paper elevation={3} style={{ height: "11%", width: "100%", marginTop: "1%", marginBottom: "1%"}}>
                 <StatusPanel
                   ROS={ROS}
                   isDark={isDark}

@@ -1,7 +1,7 @@
-import { Card, Box, CardContent, CardHeader, Typography } from "@mui/material";
-import { Modes } from "./Modes/Modes";
+import { Card, Box, CardContent, CardHeader, Typography, TextField } from "@mui/material";
+import { Switches } from "./Switches/Switches";
 import { ToggleTheme } from "./ToggleTheme";
-import { ChangeIP } from "./ChangeIP/ChangeIP"
+import { ChangeIP } from "./ChangeIP"
 
 interface ControlPanelProps {
   ROS: ROSLIB.Ros;
@@ -20,7 +20,6 @@ export const ControlPanel = (props: ControlPanelProps) => {
         color: props.isDark ? "white" : "black",
       }}
     >
-
       <CardHeader
         title={
           <Typography variant="subtitle1" align="center" gutterBottom
@@ -48,7 +47,7 @@ export const ControlPanel = (props: ControlPanelProps) => {
             />
             <ToggleTheme isDark={props.isDark} toggleIsDark={props.toggleIsDark}/>
           </Box>
-            <Modes ROS={props.ROS} />
+            <Switches ROS={props.ROS} />
         </Box>
       </CardContent>
     </Card>
