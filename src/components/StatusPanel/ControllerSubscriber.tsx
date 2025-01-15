@@ -21,9 +21,9 @@ export const ControllerSubscriber = (props: ControllerSubscriberProps) => {
     controllerTopic.subscribe((message: any) => {
       // we have a 2 second threshold for the controller + whatever clock difference there is
       if (threshold === 0) {
-        setThreshold(Date.now() / 1000 - message.stamp.sec + 0.5);
+        setThreshold(Date.now() / 1000 - message.header.stamp.sec + 2);
       }
-      setLastTimestamp(message.stamp.sec);
+      setLastTimestamp(message.header.stamp.sec);
     });
   });
 
