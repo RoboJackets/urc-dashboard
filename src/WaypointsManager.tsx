@@ -101,7 +101,14 @@ export const WaypointsManager: React.FC = () => {
         variant="contained"
         startIcon={<Add />}
         onClick={addWaypoint}
-        sx={{ mt: 2 }}
+        sx={{ 
+          mt: 2,
+          bgcolor: "#B3A300",
+          "&:hover": {
+				  backgroundColor: "yellow",
+				  },
+				  textTransform: "none",
+        }}
       >
         Add Waypoint
       </Button>
