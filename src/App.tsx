@@ -12,9 +12,8 @@ import Grid from "@mui/material/Grid2";
 import Paper from "@mui/material/Paper";
 import React from 'react';
 
-import { Longitude } from './Longitude';
-import { Latitude } from './Latitude';
 import { WaypointsManager } from './WaypointsManager';
+import { CoordinateDisplay } from "./components/NavigationPanel/CoordinateDisplay";
 import { StatusPanel } from "./components/ControlPanel/Statuses/StatusPanel"
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -27,11 +26,6 @@ const darkTheme = createTheme({
 });
 
 function App() {
-  const [containers, setContainers] = React.useState<number[]>([0, 1, 2]); // Initial state with two containers
-
-  const handleDeleteContainer = (index: number) => {
-    setContainers(containers.filter((_, i) => i !== index)); // Remove container at the specified index
-  };
   let ROS: ROSLIB.Ros;
   let defaultHost = "10.52.158.40";
   let storedHost = localStorage.getItem("ip");
@@ -181,7 +175,9 @@ function App() {
                   minHeight: "300px",
                 }}
               >
-                <Navigation ROS={ROS} />
+                <Navigation
+                  ROS={ROS}  // ROS instance that you need to pass
+                />
               </Paper>
               <Paper
                 elevation={3}
@@ -190,9 +186,11 @@ function App() {
                   width: "100%",
                   marginTop: "1%",
                   marginBottom: "1%",
+                  position: 'relative'
                 }}
               >
                 Navigation Info (current lat/lon, altitude, navigation status)
+                <CoordinateDisplay coord={{id: "R", lat: 38.406, lng: -110.792 }}/>
               </Paper>
               <Paper
                 elevation={3}
