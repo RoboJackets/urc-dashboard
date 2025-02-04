@@ -1,10 +1,7 @@
-import { Card, Box, CardContent, CardHeader, Typography, useTheme } from "@mui/material";
-import { useState } from "react";
-import { Modes } from "./Modes/Modes";
-import { Statuses } from "./Statuses/Statuses";
-import { Gamepad } from "./Gamepad/Gamepad";
+import { Card, Box, CardContent, CardHeader, Typography, TextField } from "@mui/material";
+import { Switches } from "./Switches/Switches";
 import { ToggleTheme } from "./ToggleTheme";
-import { ChangeIP } from "./ChangeIP/ChangeIP"
+import { ChangeIP } from "./ChangeIP"
 
 interface ControlPanelProps {
   ROS: ROSLIB.Ros;
@@ -23,7 +20,6 @@ export const ControlPanel = (props: ControlPanelProps) => {
         color: props.isDark ? "white" : "black",
       }}
     >
-
       <CardHeader
         title={
           <Typography variant="subtitle1" align="center" gutterBottom
@@ -51,11 +47,7 @@ export const ControlPanel = (props: ControlPanelProps) => {
             />
             <ToggleTheme isDark={props.isDark} toggleIsDark={props.toggleIsDark}/>
           </Box>
-
-          <Box display="flex" gap={2} justifyContent="center" mt={2}>
-            <Modes ROS={props.ROS} />
-            <Gamepad ROS={props.ROS} />
-          </Box>
+            <Switches ROS={props.ROS} />
         </Box>
       </CardContent>
     </Card>

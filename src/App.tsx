@@ -1,5 +1,4 @@
 import { ControlPanel } from "./components/ControlPanel/ControlPanel";
-import { InfoPanel } from "./components/InfoPanel/InfoPanel";
 import ROSLIB from "roslib";
 import { Navigation } from "./components/NavigationPanel/NavigationPanel";
 import { useState } from "react";
@@ -10,11 +9,9 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid2";
 import Paper from "@mui/material/Paper";
-import React from "react";
+import { StatusPanel } from "./components/StatusPanel/StatusPanel";
 
 import { WaypointsManager } from "./WaypointsManager";
-import { CoordinateDisplay } from "./components/NavigationPanel/CoordinateDisplay";
-import { StatusPanel } from "./components/ControlPanel/Statuses/StatusPanel";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";

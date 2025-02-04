@@ -2,13 +2,16 @@ import React from 'react';
 import { Switch, Typography, Box } from '@mui/material';
 
 interface TeleoperationSwitchProps {
-  checked: boolean
+  checked: boolean;
   onToggle: (checked: boolean) => void;
+  disabled: boolean;
 }
 
 export const TeleoperationSwitch: React.FC<TeleoperationSwitchProps> = (props) => {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      props.onToggle(event.target.checked);
+      if (!props.disabled) {
+        props.onToggle(event.target.checked);
+      }
     };
   
     return (
