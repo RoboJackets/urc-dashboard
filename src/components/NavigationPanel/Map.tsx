@@ -33,7 +33,7 @@ export const Map = (props: MapProps) => {
     if (mapRef.current) {
       mapRef.current.setView(
         [props.coord.lat, props.coord.lng],
-        mapRef.current.getZoom()
+        mapRef.current.getZoom(),
       );
     }
   };
@@ -42,10 +42,12 @@ export const Map = (props: MapProps) => {
     if (mapRef.current && props.waypointActive) {
       mapRef.current.setView(
         [props.waypoint.lat, props.waypoint.lng],
-        mapRef.current.getZoom()
+        mapRef.current.getZoom(),
       );
     }
   };
+
+  console.log(props.coord);
 
   return (
     <div className="flex-1 flex flex-col card relative p-2 gap-2">

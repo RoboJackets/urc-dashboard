@@ -10,11 +10,11 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid2";
 import Paper from "@mui/material/Paper";
-import React from 'react';
+import React from "react";
 
-import { WaypointsManager } from './WaypointsManager';
+import { WaypointsManager } from "./WaypointsManager";
 import { CoordinateDisplay } from "./components/NavigationPanel/CoordinateDisplay";
-import { StatusPanel } from "./components/ControlPanel/Statuses/StatusPanel"
+import { StatusPanel } from "./components/ControlPanel/Statuses/StatusPanel";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -30,12 +30,12 @@ function App() {
   let defaultHost = "10.52.158.40";
   let storedHost = localStorage.getItem("ip");
   const [host, setHost] = useState<string>(
-    storedHost == null ? defaultHost : storedHost
+    storedHost == null ? defaultHost : storedHost,
   );
   const [hostSet, toggleHostSet] = useState(storedHost != null);
 
   const [isDark, toggleIsDark] = useState(
-    document.documentElement.classList.contains("dark")
+    document.documentElement.classList.contains("dark"),
   );
 
   if (hostSet) {
@@ -92,10 +92,7 @@ function App() {
                   marginBottom: "1%",
                 }}
               >
-                <StatusPanel
-                  ROS={ROS}
-                  isDark={isDark}
-                />
+                <StatusPanel ROS={ROS} isDark={isDark} />
               </Paper>
               <Paper
                 elevation={3}
@@ -119,7 +116,15 @@ function App() {
               >
                 Cmd Vel Visualization
               </Paper>
-              <Paper elevation={3} style={{ height: "23%", width: "100%", marginTop: "1%", marginBottom: "1%"}}>
+              <Paper
+                elevation={3}
+                style={{
+                  height: "23%",
+                  width: "100%",
+                  marginTop: "1%",
+                  marginBottom: "1%",
+                }}
+              >
                 <ControlPanel
                   ROS={ROS}
                   toggleHostSet={toggleHostSet}
@@ -176,21 +181,8 @@ function App() {
                 }}
               >
                 <Navigation
-                  ROS={ROS}  // ROS instance that you need to pass
+                  ROS={ROS} // ROS instance that you need to pass
                 />
-              </Paper>
-              <Paper
-                elevation={3}
-                style={{
-                  height: "8%",
-                  width: "100%",
-                  marginTop: "1%",
-                  marginBottom: "1%",
-                  position: 'relative'
-                }}
-              >
-                Navigation Info (current lat/lon, altitude, navigation status)
-                <CoordinateDisplay coord={{id: "R", lat: 38.406, lng: -110.792 }}/>
               </Paper>
               <Paper
                 elevation={3}

@@ -1,16 +1,14 @@
-import { Typography} from '@mui/material';
+import { Typography } from "@mui/material";
 import { Coordinate } from "./CoordinateInterface";
-import React, { useState } from "react";
 
 interface CoordProps {
-    coord: Coordinate;
+  coord: Coordinate;
 }
 
 export const CoordinateDisplay = (props: CoordProps) => {
-    return (
-        <Typography variant="h6">
-            {"Lat: " + props.coord.lat + " Long: " + props.coord.lng}
-        </Typography>
-    )
-        
-}
+  return (
+    <Typography variant="h6">
+      {"Latitude: " + props.coord.lat + " Longitude: " + props.coord.lng}
+    </Typography>
+  );
+};

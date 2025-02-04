@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Map } from "./Map";
 import { Coordinate } from "./CoordinateInterface";
 import ROSLIB from "roslib";
+import { CoordinateDisplay } from "./CoordinateDisplay";
 interface NavigationPanelPrpos {
   ROS: ROSLIB.Ros;
 }
@@ -15,35 +16,35 @@ export const Navigation = (props: NavigationPanelPrpos) => {
 
   const gpsTopic = new ROSLIB.Topic({
     ros: props.ROS,
-    name: "/fix",
+    name: "/gps/data",
     messageType: "sensor_msgs/NavSatFix",
   });
 
   const baseTopic = new ROSLIB.Topic({
-      ros: props.ROS,
-      name: "/set_base",
-      messageType: "std_msgs/Bool",
+    ros: props.ROS,
+    name: "/set_base",
+    messageType: "std_msgs/Bool",
+  });
+
+  useEffect(() => {
+    gpsTopic.subscribe((message: any) => {
+      setCoord({
+        id: "R",
+        lat: message.latitude,
+        lng: message.longitude,
+      });
     });
-  
-   useEffect(() => {
-      gpsTopic.subscribe((message: any) => {
-        setCoord({
-          id: "R",
-          lat: message.latitude,
-          lng: message.longitude
+
+    baseTopic.subscribe((message: any) => {
+      if (message.data) {
+        setBaseCoord({
+          id: "B",
+          lat: coord.lat,
+          lng: coord.lng,
         });
-      });
-  
-      baseTopic.subscribe((message: any) => {
-        if (message.data) {
-          setBaseCoord({
-            id: "B",
-            lat: coord.lat,
-            lng: coord.lng
-          });
-        }
-      });
+      }
     });
+  });
 
   const [waypoint, setWaypoint] = useState<Coordinate>(coord);
   const [waypointActive, setWaypointActive] = useState(false);
@@ -64,8 +65,7 @@ export const Navigation = (props: NavigationPanelPrpos) => {
           baseCoord={baseCoord}
         />
       </div>
+      <CoordinateDisplay coord={coord} />
     </div>
   );
-
-  
 };
