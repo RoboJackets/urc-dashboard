@@ -3,9 +3,12 @@ import { useEffect } from "react";
 import { Map } from "./Map";
 import { Coordinate } from "./CoordinateInterface";
 import ROSLIB from "roslib";
-import { CoordinateDisplay } from "./CoordinateDisplay";
+import { Card, CardContent, CardHeader, Box } from "@mui/material";
+
+import { Typography } from "@mui/material";
 interface NavigationPanelPrpos {
   ROS: ROSLIB.Ros;
+  isDark: boolean;
 }
 export const Navigation = (props: NavigationPanelPrpos) => {
   const [coord, setCoord] = useState<Coordinate>({
@@ -55,17 +58,45 @@ export const Navigation = (props: NavigationPanelPrpos) => {
   });
 
   return (
-    <div className="flex h-full flex-col card">
-      <div className="card-title">Navigation Panel</div>
-      <div className="flex gap-2 h-full">
-        <Map
-          waypoint={waypoint}
-          waypointActive={waypointActive}
-          coord={coord}
-          baseCoord={baseCoord}
-        />
-      </div>
-      <CoordinateDisplay coord={coord} />
-    </div>
+    <Card
+      sx={{
+        backgroundColor: props.isDark ? "grey.800" : "white",
+        color: props.isDark ? "white" : "black",
+      }}
+    >
+      <CardHeader
+        title={
+          <Typography
+            variant="subtitle1"
+            align="center"
+            gutterBottom
+            sx={{ fontsize: "1rem", fontWeight: 500 }}
+          >
+            Navigation Panel
+          </Typography>
+        }
+        sx={{
+          backgroundColor: props.isDark ? "grey.700" : "grey.300",
+          padding: "4px",
+        }}
+      />
+      <CardContent>
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          gap={0.7}
+          width="100%"
+          height="100%"
+        >
+          <Map
+            waypoint={waypoint}
+            waypointActive={waypointActive}
+            coord={coord}
+            baseCoord={baseCoord}
+          />
+        </Box>
+      </CardContent>
+    </Card>
   );
 };

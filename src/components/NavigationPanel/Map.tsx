@@ -5,7 +5,7 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { useState } from "react";
 import { Coordinate } from "./CoordinateInterface";
-import { Button } from "@mui/material";
+import { Button, Box } from "@mui/material";
 
 interface MapProps {
   waypoint: Coordinate;
@@ -50,12 +50,12 @@ export const Map = (props: MapProps) => {
   console.log(props.coord);
 
   return (
-    <div className="flex-1 flex flex-col card relative p-2 gap-2">
+    <Box height="100%" width="100%">
       <MapContainer
         center={[props.coord.lat, props.coord.lng]}
         zoom={11}
         ref={mapRef}
-        style={{ height: "100%", width: "100%" }}
+        style={{ height: "450px", width: "750px" }}
       >
         {props.waypointActive && (
           <Marker
@@ -91,6 +91,6 @@ export const Map = (props: MapProps) => {
           {status ? "Online" : "Offline"}
         </Button>
       </div>
-    </div>
+    </Box>
   );
 };

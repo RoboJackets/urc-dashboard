@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import { TextField, IconButton, Button, Box, Grid } from "@mui/material";
+import {
+  TextField,
+  IconButton,
+  Button,
+  Box,
+  Grid,
+  Card,
+  Typography,
+  CardHeader,
+  CardContent,
+} from "@mui/material";
 import { Delete, Add, ArrowUpward, ArrowDownward } from "@mui/icons-material";
 
 // Define the type for a waypoint
@@ -18,9 +28,12 @@ export const WaypointsManager: React.FC = () => {
   const addWaypoint = (): void => {
     const lastWaypoint = waypoints[waypoints.length - 1];
     if (lastWaypoint.longitude === "" || lastWaypoint.latitude === "") {
-
     } else {
-      const newWaypoint: Waypoint = { id: Date.now(), latitude: "", longitude: "" };
+      const newWaypoint: Waypoint = {
+        id: Date.now(),
+        latitude: "",
+        longitude: "",
+      };
       setWaypoints([...waypoints, newWaypoint]);
     }
   };
@@ -34,12 +47,12 @@ export const WaypointsManager: React.FC = () => {
   const handleInputChange = (
     id: number,
     field: keyof Waypoint,
-    value: string
+    value: string,
   ): void => {
     setWaypoints(
       waypoints.map((waypoint) =>
-        waypoint.id === id ? { ...waypoint, [field]: value } : waypoint
-      )
+        waypoint.id === id ? { ...waypoint, [field]: value } : waypoint,
+      ),
     );
   };
 
@@ -52,66 +65,91 @@ export const WaypointsManager: React.FC = () => {
   };
 
   return (
-    <Box sx={{ p: 2, bgcolor: "background.paper" }}>
-      {waypoints.map((waypoint, index) => (
-        <Grid container spacing={2} key={waypoint.id} alignItems="center">
-          <Grid item xs={4}>
-            <TextField
-              label="Latitude"
-              variant="outlined"
-              fullWidth
-              value={waypoint.latitude}
-              onChange={(e) =>
-                handleInputChange(waypoint.id, "latitude", e.target.value)
-              }
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              label="Longitude"
-              variant="outlined"
-              fullWidth
-              value={waypoint.longitude}
-              onChange={(e) =>
-                handleInputChange(waypoint.id, "longitude", e.target.value)
-              }
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <IconButton
-              disabled={index === 0}
-              onClick={() => moveWaypoint(index, -1)}
-            >
-              <ArrowUpward />
-            </IconButton>
-            <IconButton
-              disabled={index === waypoints.length - 1}
-              onClick={
-                () => moveWaypoint(index, 1)}
-            >
-              <ArrowDownward />
-            </IconButton>
-            <IconButton onClick={() => removeWaypoint(waypoint.id)}>
-              <Delete />
-            </IconButton>
-          </Grid>
-        </Grid>
-      ))}
-      <Button
-        variant="contained"
-        startIcon={<Add />}
-        onClick={addWaypoint}
-        sx={{ 
-          mt: 2,
-          bgcolor: "#B3A300",
-          "&:hover": {
-				  backgroundColor: "yellow",
-				  },
-				  textTransform: "none",
+    <Card
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+      }}
+    >
+      <CardHeader
+        title={
+          <Typography
+            variant="subtitle1"
+            align="center"
+            gutterBottom
+            sx={{ fontSize: "1rem", fontWeight: 500 }}
+          >
+            Waypoints Manager
+          </Typography>
+        }
+        sx={{
+          backgroundColor: "grey.700",
+          padding: "4px",
         }}
-      >
-        Add Waypoint
-      </Button>
-    </Box>
+      />
+      <CardContent>
+        <Box sx={{ p: 2, bgcolor: "background.paper" }}>
+          {waypoints.map((waypoint, index) => (
+            <Grid container spacing={2} key={waypoint.id} alignItems="center">
+              <Grid item xs={4}>
+                <TextField
+                  label="Latitude"
+                  variant="outlined"
+                  fullWidth
+                  value={waypoint.latitude}
+                  onChange={(e) =>
+                    handleInputChange(waypoint.id, "latitude", e.target.value)
+                  }
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <TextField
+                  label="Longitude"
+                  variant="outlined"
+                  fullWidth
+                  value={waypoint.longitude}
+                  onChange={(e) =>
+                    handleInputChange(waypoint.id, "longitude", e.target.value)
+                  }
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <IconButton
+                  disabled={index === 0}
+                  onClick={() => moveWaypoint(index, -1)}
+                >
+                  <ArrowUpward />
+                </IconButton>
+                <IconButton
+                  disabled={index === waypoints.length - 1}
+                  onClick={() => moveWaypoint(index, 1)}
+                >
+                  <ArrowDownward />
+                </IconButton>
+                <IconButton onClick={() => removeWaypoint(waypoint.id)}>
+                  <Delete />
+                </IconButton>
+              </Grid>
+            </Grid>
+          ))}
+          <Button
+            variant="contained"
+            startIcon={<Add />}
+            onClick={addWaypoint}
+            sx={{
+              mt: 2,
+              bgcolor: "#B3A300",
+              "&:hover": {
+                backgroundColor: "yellow",
+              },
+              textTransform: "none",
+            }}
+          >
+            Add Waypoint
+          </Button>
+        </Box>
+      </CardContent>
+    </Card>
   );
 };

@@ -179,6 +179,7 @@ function App() {
               >
                 <Navigation
                   ROS={ROS} // ROS instance that you need to pass
+                  isDark={isDark} // boolean value to toggle dark mode
                 />
               </Paper>
               <Paper
@@ -190,7 +191,6 @@ function App() {
                   marginBottom: "1%",
                 }}
               >
-                Waypoint panel
                 <WaypointsManager />
               </Paper>
             </Stack>
