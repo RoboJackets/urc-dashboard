@@ -21,6 +21,7 @@ export const ToggleTheme = ( props: ToggleThemeProps) => {
       color={props.isDark ? "warning" : "primary"}
       onClick={toggleTheme}
       sx={{
+        bgcolor: "#B3A300",
         "&:hover": {
           backgroundColor: props.isDark ? "yellow.400" : "yellow.500",
         },

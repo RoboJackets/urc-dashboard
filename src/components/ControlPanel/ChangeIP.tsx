@@ -17,6 +17,7 @@ export const ChangeIP = (props: IPProps) => {
 				props.toggleHostSet();
 			}}
 			sx={{
+				bgcolor:"#B3A300",
 				"&:hover": {
 				backgroundColor: props.isDark ? "yellow.400" : "yellow.500",
 				},

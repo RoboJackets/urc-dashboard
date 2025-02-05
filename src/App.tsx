@@ -1,19 +1,17 @@
-// importing files from other components
 import { ControlPanel } from "./components/ControlPanel/ControlPanel";
-import { InfoPanel } from "./components/InfoPanel/InfoPanel";
-import { StatusPanel } from "./components/StatusPanel/StatusPanel";
-import { Navigation } from "./components/NavigationPanel/NavigationPanel";
-import { HostInput } from "./components/HostInput/HostInput";
-
 import ROSLIB from "roslib";
+import { Navigation } from "./components/NavigationPanel/NavigationPanel";
 import { useState } from "react";
-import Header  from "./header.js"
+import { HostInput } from "./components/HostInput/HostInput";
+import Header from "./header.js";
 
-// importing materialUI components
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid2";
 import Paper from "@mui/material/Paper";
+import { StatusPanel } from "./components/StatusPanel/StatusPanel";
+
+import { WaypointsManager } from "./WaypointsManager";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -33,9 +31,8 @@ function App() {
   );
   const [hostSet, toggleHostSet] = useState(storedHost != null);
 
-  // dark theme variable: keeps track of the theme to pass in to all panels
   const [isDark, toggleIsDark] = useState(
-    document.documentElement.classList.contains("dark")
+    document.documentElement.classList.contains("dark"),
   );
 
   if (hostSet) {
@@ -52,26 +49,79 @@ function App() {
     />
   );
 
+  // const renderPanels = () => (
+  //   <div className="App flex h-screen flex-col">
+  //     <div className="App w-screen p-2 flex gap-2">
+  //       <ControlPanel
+  //         ROS={ROS}
+  //         toggleHostSet={toggleHostSet}
+  //         setHost={setHost}
+  //         defaultHost={defaultHost}
+  //       />
+  //       <InfoPanel ROS={ROS} />
+  //     </div>
+  //     <Navigation ROS={ROS} />
+  //   </div>
+  // );
+
+  // const renderPanels = () => (
+  //   <div className="App flex h-screen flex-col">
+  //     <Navigation ROS={ROS} />
+  //   </div>
+  // );
+
   const renderPanels = () => (
     <>
-      <Header/>
-      <Box sx={{ flexGrow: 1 , height: "95vh", padding: "10px"}}>
-        <Grid container spacing={2} sx={{height: "100%"}}>
-          <Grid size={2} sx={{height: "100%"}}>
-            <Stack spacing={2} sx={{height: "100%", justifyContent: "space-around"}}>
-              <Paper elevation={3} style={{ height: "11%", width: "100%", marginTop: "1%", marginBottom: "1%"}}>
-                <StatusPanel
-                  ROS={ROS}
-                  isDark={isDark}
-                />
+      <Header />
+      <Box sx={{ flexGrow: 1, height: "95vh", padding: "10px" }}>
+        <Grid container spacing={2} sx={{ height: "100%" }}>
+          <Grid size={2} sx={{ height: "100%" }}>
+            <Stack
+              spacing={2}
+              sx={{ height: "100%", justifyContent: "space-around" }}
+            >
+              <Paper
+                elevation={3}
+                style={{
+                  height: "23%",
+                  width: "100%",
+                  marginTop: "1%",
+                  marginBottom: "1%",
+                }}
+              >
+                <StatusPanel ROS={ROS} isDark={isDark} />
               </Paper>
-              <Paper elevation={3} style={{ height: "23%", width: "100%", marginTop: "1%", marginBottom: "1%"}}>
+              <Paper
+                elevation={3}
+                style={{
+                  height: "23%",
+                  width: "100%",
+                  marginTop: "1%",
+                  marginBottom: "1%",
+                }}
+              >
                 IMU Visualization
               </Paper>
-              <Paper elevation={3} style={{ height: "23%", width: "100%", marginTop: "1%", marginBottom: "1%"}}>
+              <Paper
+                elevation={3}
+                style={{
+                  height: "23%",
+                  width: "100%",
+                  marginTop: "1%",
+                  marginBottom: "1%",
+                }}
+              >
                 Cmd Vel Visualization
               </Paper>
-              <Paper elevation={3} style={{ height: "23%", width: "100%", marginTop: "1%", marginBottom: "1%"}}>
+              <Paper
+                elevation={3}
+                style={{
+                  height: "23%",
+                  width: "100%",
+                  marginTop: "1%",
+                  marginBottom: "1%",
+                }}
+              >
                 <ControlPanel
                   ROS={ROS}
                   toggleHostSet={toggleHostSet}
@@ -83,26 +133,65 @@ function App() {
               </Paper>
             </Stack>
           </Grid>
-          <Grid size={5} sx={{height: "100%"}}>
-            <Stack spacing={2}  sx={{height: "100%", justifyContent: "space-around"}}>
-              <Paper elevation={3} style={{ height: "73%", width: "100%" , marginTop: "1%", marginBottom: "1%"}}>
+          <Grid size={5} sx={{ height: "100%" }}>
+            <Stack
+              spacing={2}
+              sx={{ height: "100%", justifyContent: "space-around" }}
+            >
+              <Paper
+                elevation={3}
+                style={{
+                  height: "73%",
+                  width: "100%",
+                  marginTop: "1%",
+                  marginBottom: "1%",
+                }}
+              >
                 Camera Feed(s)
               </Paper>
-              <Paper elevation={3} style={{ height: "23%", width: "100%" , marginTop: "1%", marginBottom: "1%"}}>
+              <Paper
+                elevation={3}
+                style={{
+                  height: "23%",
+                  width: "100%",
+                  marginTop: "1%",
+                  marginBottom: "1%",
+                }}
+              >
                 NUC Stdout
               </Paper>
             </Stack>
           </Grid>
-          <Grid size={5} sx={{height: "100%"}}>
-            <Stack spacing={2}  sx={{height: "100%", justifyContent: "space-around"}}>
-              <Paper elevation={3} style={{ height: "48%", width: "100%" , marginTop: "1%", marginBottom: "1%", minHeight: "300px"}}>
-                <Navigation ROS={ROS} />
+          <Grid size={5} sx={{ height: "100%" }}>
+            <Stack
+              spacing={2}
+              sx={{ height: "100%", justifyContent: "space-around" }}
+            >
+              <Paper
+                elevation={3}
+                style={{
+                  height: "48%",
+                  width: "100%",
+                  marginTop: "1%",
+                  marginBottom: "1%",
+                  minHeight: "300px",
+                }}
+              >
+                <Navigation
+                  ROS={ROS} // ROS instance that you need to pass
+                  isDark={isDark} // boolean value to toggle dark mode
+                />
               </Paper>
-              <Paper elevation={3} style={{ height: "8%", width: "100%" , marginTop: "1%", marginBottom: "1%"}}>
-                Navigation Info (current lat/lon, altitude, navigation status)
-              </Paper>
-              <Paper elevation={3} style={{ height: "38%", width: "100%" , marginTop: "1%", marginBottom: "1%"}}>
-                Waypoint panel
+              <Paper
+                elevation={3}
+                style={{
+                  height: "38%",
+                  width: "100%",
+                  marginTop: "1%",
+                  marginBottom: "1%",
+                }}
+              >
+                <WaypointsManager />
               </Paper>
             </Stack>
           </Grid>
