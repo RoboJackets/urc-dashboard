@@ -12,9 +12,12 @@ import Paper from "@mui/material/Paper";
 import { StatusPanel } from "./components/StatusPanel/StatusPanel";
 
 import { WaypointsManager } from "./WaypointsManager";
-
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+
+// 1) Import CmdVels
+import { IMU } from "./components/InfoPanel/IMU";
+import { CmdVels } from "./components/InfoPanel/CmdVels"; // adjust path as needed
 
 const darkTheme = createTheme({
   palette: {
@@ -27,13 +30,18 @@ function App() {
   let defaultHost = "10.52.158.40";
   let storedHost = localStorage.getItem("ip");
   const [host, setHost] = useState<string>(
-    storedHost == null ? defaultHost : storedHost,
+    storedHost == null ? defaultHost : storedHost
   );
   const [hostSet, toggleHostSet] = useState(storedHost != null);
 
   const [isDark, toggleIsDark] = useState(
-    document.documentElement.classList.contains("dark"),
+    document.documentElement.classList.contains("dark")
   );
+
+  // 2) Add linear & angular states
+  const [heading, setHeading] = useState<number>(0);
+  const [linear, setLinear] = useState<number>(0);
+  const [angular, setAngular] = useState<number>(0);
 
   if (hostSet) {
     localStorage.setItem("ip", host);
@@ -49,32 +57,11 @@ function App() {
     />
   );
 
-  // const renderPanels = () => (
-  //   <div className="App flex h-screen flex-col">
-  //     <div className="App w-screen p-2 flex gap-2">
-  //       <ControlPanel
-  //         ROS={ROS}
-  //         toggleHostSet={toggleHostSet}
-  //         setHost={setHost}
-  //         defaultHost={defaultHost}
-  //       />
-  //       <InfoPanel ROS={ROS} />
-  //     </div>
-  //     <Navigation ROS={ROS} />
-  //   </div>
-  // );
-
-  // const renderPanels = () => (
-  //   <div className="App flex h-screen flex-col">
-  //     <Navigation ROS={ROS} />
-  //   </div>
-  // );
-
   const renderPanels = () => (
     <>
       <Header />
       <Box sx={{ flexGrow: 1, height: "95vh", padding: "10px" }}>
-        <Grid container spacing={2} sx={{ height: "100%" }}>
+        <Grid container spacing={2}>
           <Grid size={2} sx={{ height: "100%" }}>
             <Stack
               spacing={2}
@@ -91,6 +78,7 @@ function App() {
               >
                 <StatusPanel ROS={ROS} isDark={isDark} />
               </Paper>
+
               <Paper
                 elevation={3}
                 style={{
@@ -100,8 +88,10 @@ function App() {
                   marginBottom: "1%",
                 }}
               >
-                IMU Visualization
+                <IMU ROS={ROS} heading={heading} setHeading={setHeading} isDark={true} />
               </Paper>
+
+              {/* 3) Replace "Cmd Vel Visualization" with CmdVels */}
               <Paper
                 elevation={3}
                 style={{
@@ -111,8 +101,16 @@ function App() {
                   marginBottom: "1%",
                 }}
               >
-                Cmd Vel Visualization
+                <CmdVels
+                  ROS={ROS}
+                  linear={linear}
+                  setLinear={setLinear}
+                  angular={angular}
+                  setAngular={setAngular}
+                  isDark={isDark}
+                />
               </Paper>
+
               <Paper
                 elevation={3}
                 style={{
@@ -133,6 +131,7 @@ function App() {
               </Paper>
             </Stack>
           </Grid>
+
           <Grid size={5} sx={{ height: "100%" }}>
             <Stack
               spacing={2}
@@ -162,6 +161,7 @@ function App() {
               </Paper>
             </Stack>
           </Grid>
+
           <Grid size={5} sx={{ height: "100%" }}>
             <Stack
               spacing={2}
@@ -177,10 +177,7 @@ function App() {
                   minHeight: "300px",
                 }}
               >
-                <Navigation
-                  ROS={ROS} // ROS instance that you need to pass
-                  isDark={isDark} // boolean value to toggle dark mode
-                />
+                <Navigation ROS={ROS} isDark={isDark} />
               </Paper>
               <Paper
                 elevation={3}

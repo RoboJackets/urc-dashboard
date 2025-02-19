@@ -9,7 +9,7 @@ interface InfoPanelProps {
 export const InfoPanel = (props: InfoPanelProps) => {
   const [linear, setLinear] = useState<number>(0);
   const [angular, setAngular] = useState<number>(0);
-  const [rho, setRho] = useState<number>(0);
+  const [heading, setHeading] = useState<number>(0);
 
   return (
     <div className="card">
@@ -20,11 +20,13 @@ export const InfoPanel = (props: InfoPanelProps) => {
         setLinear={setLinear}
         angular={angular}
         setAngular={setAngular}
+        isDark={true}
       />
       <IMU
         ROS={props.ROS}
-        rho={rho}
-        setRho={setRho}
+        heading={heading}
+        setHeading={setHeading}
+        isDark={true}
       />
     </div>
   );
