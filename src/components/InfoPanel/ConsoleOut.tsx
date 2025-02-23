@@ -48,7 +48,7 @@ export const ConsoleOut = (props: ConsoleOutProps) => {
         setHighPriorityMsgs((msgs) => [message, ...msgs]);
       }
     });
-  });
+  }, []);
 
   const displayedLogs = showHighPriority ? highPriorityMsgs : lowPriorityMsgs;
 
