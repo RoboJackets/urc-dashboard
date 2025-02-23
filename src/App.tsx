@@ -18,6 +18,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 // 1) Import CmdVels
 import { IMU } from "./components/InfoPanel/IMU";
 import { CmdVels } from "./components/InfoPanel/CmdVels"; // adjust path as needed
+import { ConsoleOut } from "./components/InfoPanel/ConsoleOut";
 
 const darkTheme = createTheme({
   palette: {
@@ -30,12 +31,12 @@ function App() {
   let defaultHost = "10.52.158.40";
   let storedHost = localStorage.getItem("ip");
   const [host, setHost] = useState<string>(
-    storedHost == null ? defaultHost : storedHost
+    storedHost == null ? defaultHost : storedHost,
   );
   const [hostSet, toggleHostSet] = useState(storedHost != null);
 
   const [isDark, toggleIsDark] = useState(
-    document.documentElement.classList.contains("dark")
+    document.documentElement.classList.contains("dark"),
   );
 
   // 2) Add linear & angular states
@@ -88,7 +89,12 @@ function App() {
                   marginBottom: "1%",
                 }}
               >
-                <IMU ROS={ROS} heading={heading} setHeading={setHeading} isDark={true} />
+                <IMU
+                  ROS={ROS}
+                  heading={heading}
+                  setHeading={setHeading}
+                  isDark={true}
+                />
               </Paper>
 
               {/* 3) Replace "Cmd Vel Visualization" with CmdVels */}
@@ -157,7 +163,7 @@ function App() {
                   marginBottom: "1%",
                 }}
               >
-                NUC Stdout
+                <ConsoleOut ROS={ROS} isDark={isDark} />
               </Paper>
             </Stack>
           </Grid>
