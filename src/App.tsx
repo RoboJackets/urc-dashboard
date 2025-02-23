@@ -39,11 +39,6 @@ function App() {
     document.documentElement.classList.contains("dark"),
   );
 
-  // 2) Add linear & angular states
-  const [heading, setHeading] = useState<number>(0);
-  const [linear, setLinear] = useState<number>(0);
-  const [angular, setAngular] = useState<number>(0);
-
   if (hostSet) {
     localStorage.setItem("ip", host);
     ROS = new ROSLIB.Ros({ url: "ws://" + host + ":9090" });
@@ -89,12 +84,7 @@ function App() {
                   marginBottom: "1%",
                 }}
               >
-                <IMU
-                  ROS={ROS}
-                  heading={heading}
-                  setHeading={setHeading}
-                  isDark={true}
-                />
+                <IMU ROS={ROS} isDark={true} />
               </Paper>
 
               {/* 3) Replace "Cmd Vel Visualization" with CmdVels */}
@@ -107,14 +97,7 @@ function App() {
                   marginBottom: "1%",
                 }}
               >
-                <CmdVels
-                  ROS={ROS}
-                  linear={linear}
-                  setLinear={setLinear}
-                  angular={angular}
-                  setAngular={setAngular}
-                  isDark={isDark}
-                />
+                <CmdVels ROS={ROS} isDark={isDark} />
               </Paper>
 
               <Paper
