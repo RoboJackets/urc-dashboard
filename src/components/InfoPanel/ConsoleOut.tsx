@@ -13,7 +13,6 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  TablePagination,
   FormControlLabel,
   Switch,
 } from "@mui/material";
@@ -27,9 +26,7 @@ export const ConsoleOut = (props: ConsoleOutProps) => {
   const [lowPriorityMsgs, setLowPriorityMsgs] = useState<any[]>([]);
   const [highPriorityMsgs, setHighPriorityMsgs] = useState<any[]>([]);
 
-  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [showHighPriority, setShowHighPriority] = useState(false);
-  const [page, setPage] = useState(0);
 
   const ConsoleOutTopic = new ROSLIB.Topic({
     ros: props.ROS,
@@ -41,6 +38,7 @@ export const ConsoleOut = (props: ConsoleOutProps) => {
 
   useEffect(() => {
     ConsoleOutTopic.subscribe((message: any) => {
+      console.log(message);
       if (message.level <= 20) {
         if (lowPriorityMsgs.length >= MAX_MSGS) {
           setLowPriorityMsgs((msgs) => msgs.slice(1));
@@ -93,12 +91,15 @@ export const ConsoleOut = (props: ConsoleOutProps) => {
                 ? "Showing High Priority Logs"
                 : "Showing Low Priority Logs"
             }
-            style={{ marginBottom: "20px" }}
+            style={{ marginBottom: "10px" }}
           />
 
-          {/* Table */}
-          <TableContainer component={Paper}>
-            <Table>
+          {/* Scrollable Table */}
+          <TableContainer
+            component={Paper}
+            style={{ maxHeight: 400, overflowY: "auto" }}
+          >
+            <Table stickyHeader>
               <TableHead>
                 <TableRow>
                   <TableCell>Level</TableCell>
@@ -108,35 +109,19 @@ export const ConsoleOut = (props: ConsoleOutProps) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {displayedLogs
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((log, index) => (
-                    <TableRow key={index}>
-                      <TableCell>{log.level}</TableCell>
-                      <TableCell>{log.name}</TableCell>
-                      <TableCell>{log.msg}</TableCell>
-                      <TableCell>
-                        {new Date(log.timestamp).toLocaleString()}
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                {displayedLogs.map((log, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{log.level}</TableCell>
+                    <TableCell>{log.name}</TableCell>
+                    <TableCell>{log.msg}</TableCell>
+                    <TableCell>
+                      {new Date(log.timestamp).toLocaleString()}
+                    </TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </TableContainer>
-
-          {/* Pagination */}
-          <TablePagination
-            component="div"
-            count={displayedLogs.length}
-            page={page}
-            rowsPerPage={rowsPerPage}
-            onPageChange={(_, newPage) => setPage(newPage)}
-            rowsPerPageOptions={[5, 10, 20]}
-            onRowsPerPageChange={(e) => {
-              setRowsPerPage(parseInt(e.target.value, 10));
-              setPage(0);
-            }}
-          />
         </div>
       </CardContent>
     </Card>
