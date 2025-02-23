@@ -30,18 +30,13 @@ function App() {
   let defaultHost = "10.52.158.40";
   let storedHost = localStorage.getItem("ip");
   const [host, setHost] = useState<string>(
-    storedHost == null ? defaultHost : storedHost
+    storedHost == null ? defaultHost : storedHost,
   );
   const [hostSet, toggleHostSet] = useState(storedHost != null);
 
   const [isDark, toggleIsDark] = useState(
-    document.documentElement.classList.contains("dark")
+    document.documentElement.classList.contains("dark"),
   );
-
-  // 2) Add linear & angular states
-  const [heading, setHeading] = useState<number>(0);
-  const [linear, setLinear] = useState<number>(0);
-  const [angular, setAngular] = useState<number>(0);
 
   if (hostSet) {
     localStorage.setItem("ip", host);
@@ -88,7 +83,7 @@ function App() {
                   marginBottom: "1%",
                 }}
               >
-                <IMU ROS={ROS} heading={heading} setHeading={setHeading} isDark={true} />
+                <IMU ROS={ROS} isDark={true} />
               </Paper>
 
               {/* 3) Replace "Cmd Vel Visualization" with CmdVels */}
@@ -101,14 +96,7 @@ function App() {
                   marginBottom: "1%",
                 }}
               >
-                <CmdVels
-                  ROS={ROS}
-                  linear={linear}
-                  setLinear={setLinear}
-                  angular={angular}
-                  setAngular={setAngular}
-                  isDark={isDark}
-                />
+                <CmdVels ROS={ROS} isDark={isDark} />
               </Paper>
 
               <Paper

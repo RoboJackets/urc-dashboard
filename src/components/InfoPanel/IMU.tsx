@@ -1,16 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ROSLIB from "roslib";
 import { Card, CardHeader, CardContent, Typography } from "@mui/material";
 
-
 interface IMUProps {
-  heading: number,
-  ROS: any,
-  setHeading: Function,
-  isDark: boolean,
+  ROS: any;
+  isDark: boolean;
 }
 
 export const IMU = (props: IMUProps) => {
+  const [heading, setHeading] = useState(0);
   const IMUTopic = new ROSLIB.Topic({
     ros: props.ROS,
     name: "/imu/data",
@@ -19,23 +17,27 @@ export const IMU = (props: IMUProps) => {
 
   useEffect(() => {
     IMUTopic.subscribe((message: any) => {
-      const [x, y, z, w]: number[] = message.quaternion;
-      const [sqx, sqy, sqz, sqw]: number[] = message.quaternion.map((x: number) => {
-        return x * x;
-      })
+      const [x, y, z, w]: number[] = [
+        message.orientation.x,
+        message.orientation.y,
+        message.orientation.z,
+        message.orientation.w,
+      ];
+      const [sqx, sqy, sqz, sqw]: number[] = [x * x, y * y, z * z, w * w];
       const unit = sqx + sqy + sqz + sqw;
       let eulerZ = 5;
 
       const test = x * y * z * w;
-      if (test < 0.499 * unit && test > -0.499 * unit) { // singularity at north pole
-          eulerZ = Math.atan2(2 * x * w - 2 * y * z, -sqx + sqy - sqz + sqw);
+      if (test < 0.499 * unit && test > -0.499 * unit) {
+        // singularity at north pole
+        eulerZ = Math.atan2(2 * x * w - 2 * y * z, -sqx + sqy - sqz + sqw);
       }
       let headingDegrees = (eulerZ * 180) / Math.PI;
       if (headingDegrees < 0) {
         headingDegrees += 360;
       }
       headingDegrees %= 360;
-      props.setHeading(headingDegrees);
+      setHeading(headingDegrees);
     });
   });
 
@@ -66,7 +68,7 @@ export const IMU = (props: IMUProps) => {
       />
       <CardContent>
         {/* Numeric heading */}
-        <div>{`Heading: ${props.heading}`}</div>
+        <div>{`Heading: ${heading}`}</div>
 
         {/* Compass circle */}
         <div
@@ -88,7 +90,7 @@ export const IMU = (props: IMUProps) => {
               width: "2px",
               height: "30%",
               backgroundColor: "red",
-              transform: `translate(-50%, -100%) rotate(${props.heading}deg)`,
+              transform: `translate(-50%, -100%) rotate(${heading}deg)`,
               transformOrigin: "50% 100%",
               zIndex: 1,
             }}
@@ -101,7 +103,7 @@ export const IMU = (props: IMUProps) => {
               height: 0,
               top: "50%",
               left: "50%",
-              transform: `translate(-50%, -100%) rotate(${props.heading}deg)`,
+              transform: `translate(-50%, -100%) rotate(${heading}deg)`,
               transformOrigin: "50% 100%",
               borderLeft: "10px solid transparent",
               borderRight: "10px solid transparent",
@@ -164,4 +166,4 @@ export const IMU = (props: IMUProps) => {
       </CardContent>
     </Card>
   );
-}
+};
