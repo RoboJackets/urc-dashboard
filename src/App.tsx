@@ -18,6 +18,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 // 1) Import CmdVels
 import { IMU } from "./components/InfoPanel/IMU";
 import { CmdVels } from "./components/InfoPanel/CmdVels"; // adjust path as needed
+import { ConsoleOut } from "./components/InfoPanel/ConsoleOut";
 
 const darkTheme = createTheme({
   palette: {
@@ -145,7 +146,7 @@ function App() {
                   marginBottom: "1%",
                 }}
               >
-                NUC Stdout
+                <ConsoleOut ROS={ROS} isDark={isDark} />
               </Paper>
             </Stack>
           </Grid>

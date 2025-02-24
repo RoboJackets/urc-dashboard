@@ -47,8 +47,6 @@ export const Map = (props: MapProps) => {
     }
   };
 
-  console.log(props.coord);
-
   return (
     <Box height="100%" width="100%">
       <MapContainer
