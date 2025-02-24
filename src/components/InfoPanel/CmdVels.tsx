@@ -1,18 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ROSLIB from "roslib";
 
 import { Card, CardHeader, CardContent, Typography } from "@mui/material";
 
 interface CmdVelProps {
-  linear: number;
-  angular: number;
   ROS: any;
-  setLinear: Function;
-  setAngular: Function;
   isDark: boolean;
 }
 
 export const CmdVels = (props: CmdVelProps) => {
+  const [linear, setLinear] = useState(0);
+  const [angular, setAngular] = useState(0);
+
   const CmdVelTopic = new ROSLIB.Topic({
     ros: props.ROS,
     name: "/rover_drivetrain_controller/cmd_vel",
@@ -21,8 +20,8 @@ export const CmdVels = (props: CmdVelProps) => {
 
   useEffect(() => {
     CmdVelTopic.subscribe((message: any) => {
-      props.setLinear(message.twist.linear.x);  // linear x
-      props.setAngular(message.twist.angular.z); // angular z
+      setLinear(message.twist.linear.x); // linear x
+      setAngular(message.twist.angular.z); // angular z
     });
   });
 
@@ -55,7 +54,7 @@ export const CmdVels = (props: CmdVelProps) => {
       {/* 5) Wrap linear/angular text in CardContent */}
       <CardContent>
         <Typography variant="body2">
-          {`Linear: ${props.linear.toPrecision(3)}, Angular: ${props.angular.toPrecision(3)}`}
+          {`Linear: ${linear.toPrecision(3)}, Angular: ${angular.toPrecision(3)}`}
         </Typography>
       </CardContent>
     </Card>
