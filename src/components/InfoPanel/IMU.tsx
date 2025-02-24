@@ -19,9 +19,9 @@ export const IMU = (props: IMUProps) => {
 
   useEffect(() => {
     IMUTopic.subscribe((message: any) => {
-      if (message.header.stamp.secs + (0.001 * message.header.stamp.nsecs) - prevTime > 0.1) {
-        prevTime = message.header.stamp.secs + (0.001 * message.header.stamp.nsecs)
-      
+      if (message.header.stamp.sec - prevTime > 0.1) {
+        prevTime = message.header.stamp.sec;
+
         const [x, y, z, w]: number[] = [
           message.orientation.x,
           message.orientation.y,
@@ -37,13 +37,13 @@ export const IMU = (props: IMUProps) => {
           // singularity at north pole
           eulerZ = Math.atan2(2 * x * w - 2 * y * z, -sqx + sqy - sqz + sqw);
         }
-        let headingDegrees = ((eulerZ * 180) / Math.PI) + 90;
+        let headingDegrees = (eulerZ * 180) / Math.PI + 90;
         if (headingDegrees < 0) {
           headingDegrees += 360;
         }
         headingDegrees %= 360;
         setHeading(headingDegrees);
-    }
+      }
     });
   });
 
