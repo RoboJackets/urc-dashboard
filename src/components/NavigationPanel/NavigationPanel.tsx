@@ -47,7 +47,7 @@ export const Navigation = (props: NavigationPanelPrpos) => {
         });
       }
     });
-  });
+  }, []);
 
   const [waypoint, setWaypoint] = useState<Coordinate>(coord);
   const [waypointActive, setWaypointActive] = useState(false);

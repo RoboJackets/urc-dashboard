@@ -15,29 +15,35 @@ export const IMU = (props: IMUProps) => {
     messageType: "sensor_msgs/Imu",
   });
 
+  let prevTime = 0;
+
   useEffect(() => {
     IMUTopic.subscribe((message: any) => {
-      const [x, y, z, w]: number[] = [
-        message.orientation.x,
-        message.orientation.y,
-        message.orientation.z,
-        message.orientation.w,
-      ];
-      const [sqx, sqy, sqz, sqw]: number[] = [x * x, y * y, z * z, w * w];
-      const unit = sqx + sqy + sqz + sqw;
-      let eulerZ = 5;
+      if (message.header.stamp.sec - prevTime > 0.1) {
+        prevTime = message.header.stamp.sec;
 
-      const test = x * y * z * w;
-      if (test < 0.499 * unit && test > -0.499 * unit) {
-        // singularity at north pole
-        eulerZ = Math.atan2(2 * x * w - 2 * y * z, -sqx + sqy - sqz + sqw);
+        const [x, y, z, w]: number[] = [
+          message.orientation.x,
+          message.orientation.y,
+          message.orientation.z,
+          message.orientation.w,
+        ];
+        const [sqx, sqy, sqz, sqw]: number[] = [x * x, y * y, z * z, w * w];
+        const unit = sqx + sqy + sqz + sqw;
+        let eulerZ = 5;
+
+        const test = x * y * z * w;
+        if (test < 0.499 * unit && test > -0.499 * unit) {
+          // singularity at north pole
+          eulerZ = Math.atan2(2 * x * w - 2 * y * z, -sqx + sqy - sqz + sqw);
+        }
+        let headingDegrees = (eulerZ * 180) / Math.PI + 90;
+        if (headingDegrees < 0) {
+          headingDegrees += 360;
+        }
+        headingDegrees %= 360;
+        setHeading(headingDegrees);
       }
-      let headingDegrees = (eulerZ * 180) / Math.PI;
-      if (headingDegrees < 0) {
-        headingDegrees += 360;
-      }
-      headingDegrees %= 360;
-      setHeading(headingDegrees);
     });
   });
 
