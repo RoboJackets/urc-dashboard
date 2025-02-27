@@ -37,7 +37,7 @@ export const IMU = (props: IMUProps) => {
           // singularity at north pole
           eulerZ = Math.atan2(2 * x * w - 2 * y * z, -sqx + sqy - sqz + sqw);
         }
-        let headingDegrees = (eulerZ * 180) / Math.PI + 90;
+        let headingDegrees = (eulerZ * 180) / Math.PI - 90;
         if (headingDegrees < 0) {
           headingDegrees += 360;
         }
@@ -45,7 +45,7 @@ export const IMU = (props: IMUProps) => {
         setHeading(headingDegrees);
       }
     });
-  });
+  }, []);
 
   return (
     <Card

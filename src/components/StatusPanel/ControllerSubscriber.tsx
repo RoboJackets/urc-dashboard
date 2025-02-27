@@ -25,7 +25,7 @@ export const ControllerSubscriber = (props: ControllerSubscriberProps) => {
       }
       setLastTimestamp(message.header.stamp.sec);
     });
-  });
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
