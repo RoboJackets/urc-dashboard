@@ -129,17 +129,6 @@ function App() {
               <Paper
                 elevation={3}
                 style={{
-                  height: "73%",
-                  width: "100%",
-                  marginTop: "1%",
-                  marginBottom: "1%",
-                }}
-              >
-                Camera Feed(s)
-              </Paper>
-              <Paper
-                elevation={3}
-                style={{
                   height: "23%",
                   width: "100%",
                   marginTop: "1%",
