@@ -25,7 +25,7 @@ export const HeartbeatSubscriber = (props: HeartbeatSubscriberProps) => {
       }
       setLastTimestamp(message.stamp.sec);
     });
-  });
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {

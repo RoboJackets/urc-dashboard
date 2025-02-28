@@ -1,23 +1,34 @@
-import { useState } from "react";
+import Button from "@mui/material/Button";
 
-export const ToggleTheme = () => {
-  const [isDark, toggleIsDark] = useState(
-    document.documentElement.classList.contains("dark")
-  );
+interface ToggleThemeProps {
+  isDark: boolean;
+  toggleIsDark: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const ToggleTheme = ( props: ToggleThemeProps) => {
   const toggleTheme = () => {
-    if (isDark) {
+    if (props.isDark) {
       document.documentElement.classList.remove("dark");
     } else {
       document.documentElement.classList.add("dark");
     }
-    toggleIsDark(!isDark);
+    props.toggleIsDark(!props.isDark);
   };
+
   return (
-    <button
-      className={isDark ? "hover:bg-yellow-400" : "hover:bg-yellow-500"}
-      onClick={() => toggleTheme()}
+    <Button
+      variant="contained"
+      color={props.isDark ? "warning" : "primary"}
+      onClick={toggleTheme}
+      sx={{
+        bgcolor: "#B3A300",
+        "&:hover": {
+          backgroundColor: props.isDark ? "yellow.400" : "yellow.500",
+        },
+        textTransform: "none",
+      }}
     >
       Toggle Theme
-    </button>
+    </Button>
   );
 };

@@ -1,3 +1,5 @@
+import { Box, TextField, Button, Card, CardContent, Typography } from "@mui/material"
+
 interface HostInputProps {
   host: string;
   setHost: Function;
@@ -7,24 +9,40 @@ interface HostInputProps {
 
 export const HostInput = (props: HostInputProps) => {
   return (
-    <div className="App w-screen h-screen p-2 flex gap-2 items-center justify-center">
-      <div className="card">
-        <div className="card-title">Input Rosbridge Host</div>
-        <input
-          placeholder={props.defaultHost}
-          className="w-[200px] h-min"
-          onChange={(e) => props.setHost(e.target.value)}
-        />
-        <button
-          onClick={() => {
-            if (props.host) {
-              props.toggleHostSet(true);
-            }
-          }}
-        >
-          Connect
-        </button>
-      </div>
-    </div>
+    <Box
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      width="100vw"
+      height="100vh"
+      p={2}
+    >
+      <Card elevation={3} sx={{ maxWidth: 400, p: 2 }}>
+        <CardContent>
+          <Typography variant="h6" gutterBottom align="center">
+            Input Rosbridge Host
+          </Typography>
+          <TextField
+            fullWidth
+            variant="outlined"
+            placeholder={props.defaultHost}
+            onChange={(e) => props.setHost(e.target.value)}
+            sx={{ mb: 2 }}
+          />
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              if (props.host) {
+                props.toggleHostSet(true);
+              }
+            }}
+          >
+            Connect
+          </Button>
+        </CardContent>
+      </Card>
+    </Box>
   );
 };
