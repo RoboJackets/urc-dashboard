@@ -137,6 +137,21 @@ function App() {
               >
                 <ConsoleOut ROS={ROS} isDark={isDark} />
               </Paper>
+              <Paper
+                elevation={3}
+                style={{
+                  height: "23%",
+                  width: "100%",
+                  marginTop: "1%",
+                  marginBottom: "1%",
+                }}
+              >
+                <embed
+                  src="http://192.168.1.133"
+                  width="100%"
+                  height="100%"
+                ></embed>
+              </Paper>
             </Stack>
           </Grid>
 
