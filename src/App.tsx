@@ -10,7 +10,7 @@ import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid2";
 import Paper from "@mui/material/Paper";
 import { StatusPanel } from "./components/StatusPanel/StatusPanel";
-
+import VideoPanel from "./components/VideoPanel";
 import { WaypointsManager } from "./WaypointsManager";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -146,11 +146,7 @@ function App() {
                   marginBottom: "1%",
                 }}
               >
-                <embed
-                  src="http://192.168.1.133"
-                  width="100%"
-                  height="100%"
-                ></embed>
+                <VideoPanel />
               </Paper>
             </Stack>
           </Grid>
