@@ -23,7 +23,7 @@ export const CmdVels = (props: CmdVelProps) => {
       setLinear(message.twist.linear.x); // linear x
       setAngular(message.twist.angular.z); // angular z
     });
-  });
+  }, []);
 
   return (
     // 3) Replace outer <div className="card"> with MUI Card

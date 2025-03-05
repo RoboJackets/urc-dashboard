@@ -35,7 +35,9 @@ npm start
 
 3. If you want to use a controller with the dashboard, make sure you have the necessary drivers installed. Then, plug in the controller and wiggle around the joysticks or press a couple buttons to make sure it is connected (if nothing happens, then your drivers didnt install properly and javascript cannot see the controllers). Then, choose the controller you want to use for driving the rover and operating the arm.
 
-4. You can see the statuses of rosbridge and the rover in the status panel.
+4. This [package] (https://github.com/deepch/RTSPtoWeb) converts RTSP to HLS for camera display on the panel. Currently WIP on including the launch stuff automatically - for now, you have to git clone the repo, cd to RTSPtoWeb, and run GO111MODULE=on go run *.go. Make sure you have Go installed. If for some reason the stream does not display go to 127.0.0.1:8083 and add a new stream with the URL for the stream being sent out over RTSP by the camera.
+
+5. You can see the statuses of rosbridge and the rover in the status panel.
 
 ## Navigation Panel
 

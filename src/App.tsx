@@ -10,6 +10,7 @@ import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid2";
 import Paper from "@mui/material/Paper";
 import { StatusPanel } from "./components/StatusPanel/StatusPanel";
+import VideoPanel from "./components/VideoPanel";
 
 import { WaypointsManager } from "./WaypointsManager";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -136,6 +137,17 @@ function App() {
                 }}
               >
                 <ConsoleOut ROS={ROS} isDark={isDark} />
+              </Paper>
+              <Paper
+                elevation={3}
+                style={{
+                  height: "23%",
+                  width: "100%",
+                  marginTop: "1%",
+                  marginBottom: "1%",
+                }}
+              >
+                <VideoPanel />
               </Paper>
             </Stack>
           </Grid>
