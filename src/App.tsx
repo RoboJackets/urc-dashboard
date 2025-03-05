@@ -11,6 +11,7 @@ import Grid from "@mui/material/Grid2";
 import Paper from "@mui/material/Paper";
 import { StatusPanel } from "./components/StatusPanel/StatusPanel";
 import VideoPanel from "./components/VideoPanel";
+
 import { WaypointsManager } from "./WaypointsManager";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
