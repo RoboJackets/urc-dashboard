@@ -12,7 +12,7 @@ import Paper from "@mui/material/Paper";
 import { StatusPanel } from "./components/StatusPanel/StatusPanel";
 import VideoPanel from "./components/VideoPanel";
 
-import { WaypointsManager } from "./WaypointsManager";
+import { GoalQueue } from "./GoalQueue";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
@@ -32,12 +32,12 @@ function App() {
   let defaultHost = "10.52.158.40";
   let storedHost = localStorage.getItem("ip");
   const [host, setHost] = useState<string>(
-    storedHost == null ? defaultHost : storedHost,
+    storedHost == null ? defaultHost : storedHost
   );
   const [hostSet, toggleHostSet] = useState(storedHost != null);
 
   const [isDark, toggleIsDark] = useState(
-    document.documentElement.classList.contains("dark"),
+    document.documentElement.classList.contains("dark")
   );
 
   if (hostSet) {
@@ -178,7 +178,7 @@ function App() {
                   marginBottom: "1%",
                 }}
               >
-                <WaypointsManager />
+                <GoalQueue />
               </Paper>
             </Stack>
           </Grid>
