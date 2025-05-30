@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { TeleoperationSwitch } from "./TeleoperationSwitch";
-import { EnableSwitch } from "./EnableSwitch"; 
+import { EnableSwitch } from "./EnableSwitch";
 import { Box } from "@mui/material";
 import ROSLIB from "roslib";
 
@@ -9,7 +9,7 @@ interface SwitchesProps {
 }
 
 export const Switches = (props: SwitchesProps) => {
-  const [teleopEnabled, setTeleopEnabled] = useState<boolean>(false);
+  const [teleopEnabled, setTeleopEnabled] = useState<boolean>(true);
   const [enabled, setEnabled] = useState<boolean>(true);
 
   const handleTeleopToggle = (checked: boolean) => {
@@ -19,7 +19,9 @@ export const Switches = (props: SwitchesProps) => {
       name: "/cmd_vel_mode",
       messageType: "std_msgs/String",
     });
-    TeleopTopic.publish(new ROSLIB.Message({ data: checked ? "teleop" : "autonomous" }));
+    TeleopTopic.publish(
+      new ROSLIB.Message({ data: checked ? "teleop" : "autonomous" }),
+    );
   };
 
   const handleEnableToggle = (checked: boolean) => {
@@ -34,7 +36,11 @@ export const Switches = (props: SwitchesProps) => {
 
   return (
     <Box display="flex" flexDirection="column" gap={0.1}>
-      <TeleoperationSwitch checked={teleopEnabled} onToggle={handleTeleopToggle} disabled = {!enabled}/>
+      <TeleoperationSwitch
+        checked={teleopEnabled}
+        onToggle={handleTeleopToggle}
+        disabled={!enabled}
+      />
       <EnableSwitch checked={enabled} onToggle={handleEnableToggle} />
     </Box>
   );
