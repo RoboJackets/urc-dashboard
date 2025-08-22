@@ -1,3 +1,4 @@
+import ROSLIB from "roslib";
 import React, { useState } from "react";
 import {
   TextField,
@@ -36,12 +37,48 @@ export const WaypointsManager: React.FC = () => {
       };
       setWaypoints([...waypoints, newWaypoint]);
     }
+  
+
+    const addWaypointService = new ROSLIB.Service({
+      ros: ros,
+      name: '/add_waypoint',
+      serviceType: 'package/AddWaypoint',
+    });
+    
+    const addWaypointRequest = new ROSLIB.ServiceRequest({
+      latitude: lastWaypoint.latitude,
+      longitude: lastWaypoint.longitude
+    })
+
+    addWaypointService.callService(addWaypointRequest, (result: any) => {
+      console.log("Waypoint added: " + result);
+    })
+
   };
+
 
   // Remove a waypoint by ID
   const removeWaypoint = (id: number): void => {
     setWaypoints(waypoints.filter((waypoint) => waypoint.id !== id));
+
+    const removeWaypointService = new ROSLIB.Service({
+      ros: ros,
+      name: '/remove_waypoint',
+      serviceType: 'package/RemoveWaypoint',
+    });
+
+    const removeWaypointRequest = new ROSLIB.ServiceRequest({
+      id: id,
+    });
+
+    removeWaypointService.callService(removeWaypointRequest, (result: any) => {
+      console.log("Waypoint removed: " + result);
+    })
   };
+
+
+
+
 
   // Handle input changes for latitude and longitude
   const handleInputChange = (
