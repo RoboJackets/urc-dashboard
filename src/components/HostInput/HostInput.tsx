@@ -13,8 +13,9 @@ export const HostInput = (props: HostInputProps) => {
       display="flex"
       alignItems="center"
       justifyContent="center"
-      width="100vw"
-      height="100vh"
+      width="100%"
+      minHeight="100vh"
+      boxSizing="border-box"
       p={2}
     >
       <Card elevation={3} sx={{ maxWidth: 400, p: 2 }}>
