@@ -5,14 +5,16 @@
 
 .rootContainer {
 
-    width: 100vw;
-    height: 5vh;
+    width: 100%;
+    height: 60px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    padding-right: 20px;
     background-color: gray;
     display:flex;
     flex-direction:row;
     justify-content: space-between;
     align-items: center;
-    min-height: 60px;
 }
 
 .logoWithImage {
@@ -20,6 +22,12 @@
     margin-left: 10px;
     display:flex;
     flex-direction:row;
+    align-items: center;
+}
+
+.headerControls {
+    display: flex;
+    flex-direction: row;
     align-items: center;
 }
 

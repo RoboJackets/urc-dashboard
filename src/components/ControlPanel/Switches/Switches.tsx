@@ -1,38 +1,38 @@
-import { useState } from "react";
+import { useMemo } from "react";
 import { TeleoperationSwitch } from "./TeleoperationSwitch";
 import { EnableSwitch } from "./EnableSwitch";
 import { Box } from "@mui/material";
 import ROSLIB from "roslib";
+import { useTopic } from "../../../ros/hooks";
+import { TOPICS, TOPIC_TYPES } from "../../../ros/interfaces";
 
 interface SwitchesProps {
   ROS: ROSLIB.Ros;
 }
 
+// Switch positions mirror the twist mux's retained /drive_mode state
+// ("teleop" | "autonomous" | "disabled"); toggles only send requests.
+// Before the first state arrives, show the mux's startup state (enabled, teleop).
 export const Switches = (props: SwitchesProps) => {
-  const [teleopEnabled, setTeleopEnabled] = useState<boolean>(true);
-  const [enabled, setEnabled] = useState<boolean>(true);
+  const driveMode = useTopic<{ data: string }>(TOPICS.driveMode, TOPIC_TYPES.driveMode);
+  const mode = driveMode.msg?.data ?? "teleop";
+  const enabled = mode !== "disabled";
+  const teleopEnabled = mode !== "autonomous";
 
-  const handleTeleopToggle = (checked: boolean) => {
-    setTeleopEnabled(checked);
-    const TeleopTopic = new ROSLIB.Topic({
-      ros: props.ROS,
-      name: "/cmd_vel_mode",
-      messageType: "std_msgs/String",
-    });
-    TeleopTopic.publish(
-      new ROSLIB.Message({ data: checked ? "teleop" : "autonomous" }),
-    );
-  };
+  const modeTopic = useMemo(
+    () => new ROSLIB.Topic({ ros: props.ROS, name: TOPICS.cmdVelMode, messageType: TOPIC_TYPES.cmdVelMode }),
+    [props.ROS],
+  );
+  const enableTopic = useMemo(
+    () => new ROSLIB.Topic({ ros: props.ROS, name: TOPICS.cmdVelEnabled, messageType: TOPIC_TYPES.cmdVelEnabled }),
+    [props.ROS],
+  );
 
-  const handleEnableToggle = (checked: boolean) => {
-    setEnabled(checked);
-    const EnableTopic = new ROSLIB.Topic({
-      ros: props.ROS,
-      name: "/cmd_vel_enabled",
-      messageType: "std_msgs/Bool",
-    });
-    EnableTopic.publish(new ROSLIB.Message({ data: checked })); // True if enabled, False if not, boolean message
-  };
+  const handleTeleopToggle = (checked: boolean) =>
+    modeTopic.publish(new ROSLIB.Message({ data: checked ? "teleop" : "autonomous" }));
+
+  const handleEnableToggle = (checked: boolean) =>
+    enableTopic.publish(new ROSLIB.Message({ data: checked }));
 
   return (
     <Box display="flex" flexDirection="column" gap={0.1}>

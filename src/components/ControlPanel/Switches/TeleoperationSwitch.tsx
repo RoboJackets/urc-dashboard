@@ -20,6 +20,7 @@ export const TeleoperationSwitch: React.FC<TeleoperationSwitchProps> = (props) =
         <Switch
           checked={props.checked}
           onChange={handleChange}
+          disabled={props.disabled}
           color="primary"
         />
         <Typography variant="body2">Teleoperation</Typography>
