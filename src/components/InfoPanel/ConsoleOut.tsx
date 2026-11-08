@@ -144,7 +144,7 @@ export const ConsoleOut = (props: ConsoleOutProps) => {
                       <TableCell>{log.msg}</TableCell>
                       <TableCell>
                         {new Date(
-                          log.stamp.sec * 1000 + log.stamp.nanosec,
+                          log.stamp.sec * 1000 + log.stamp.nanosec / 1e6,
                         ).toLocaleString()}
                       </TableCell>
                     </TableRow>
