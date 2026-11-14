@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MapContainer, Marker, TileLayer, Circle, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -25,6 +25,10 @@ interface Zone {
 }
 
 const EXTRA_COLORS = ["bg-purple-500", "bg-orange-500", "bg-cyan-500"];
+// Mission goals are metres from the rover, so allow zooming past the deepest
+// tiles (OSM 19, offline cache 17 per tools/fetch_tiles.sh) by upscaling them.
+const MAX_ZOOM = 22;
+const GOAL_FIT_MAX_ZOOM = 21;
 
 export const Map = (props: MapProps) => {
   const [status, setStatus] = useState(true);
@@ -47,6 +51,17 @@ export const Map = (props: MapProps) => {
       mapRef.current.setView([props.waypoint.lat, props.waypoint.lng], mapRef.current.getZoom());
   };
 
+  // Frame rover and goal once per new goal; later rover updates leave the view alone
+  const goalLat = props.waypoint?.lat;
+  const goalLng = props.waypoint?.lng;
+  useEffect(() => {
+    if (!mapRef.current || goalLat === undefined || goalLng === undefined) return;
+    mapRef.current.fitBounds(
+      [[props.coord.lat, props.coord.lng], [goalLat, goalLng]],
+      { padding: [40, 40], maxZoom: GOAL_FIT_MAX_ZOOM },
+    );
+  }, [goalLat, goalLng]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const ZoneClicker = () => {
     useMapEvents({
       click(e) {
@@ -65,6 +80,7 @@ export const Map = (props: MapProps) => {
       <MapContainer
         center={[props.coord.lat, props.coord.lng]}
         zoom={11}
+        maxZoom={MAX_ZOOM}
         ref={mapRef}
         style={{ height: "395px", width: "750px" }}
       >
@@ -75,6 +91,7 @@ export const Map = (props: MapProps) => {
               key={props.waypoint.id}
               position={[props.waypoint.lat, props.waypoint.lng]}
               icon={createCustomIcon(props.waypoint.id, "bg-blue-500")}
+              zIndexOffset={1000}
             />
             {props.arrivalRadius !== undefined && props.arrivalRadius > 0 && (
               <Circle
@@ -111,9 +128,9 @@ export const Map = (props: MapProps) => {
         ))}
 
         {status ? (
-          <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" maxNativeZoom={19} maxZoom={MAX_ZOOM} />
         ) : (
-          <TileLayer url="/static/map/{z}/{x}/{y}.png" errorTileUrl="error" />
+          <TileLayer url="/static/map/{z}/{x}/{y}.png" errorTileUrl="error" maxNativeZoom={17} maxZoom={MAX_ZOOM} />
         )}
       </MapContainer>
       <div className="flex justify-center items-center gap-3" style={{ flexWrap: "wrap" }}>
